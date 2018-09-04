@@ -274,7 +274,7 @@ sqrt(2)
 floor(8.6178)
 # Round up to nearest integer
 ceiling(8.6178)
-# Round pi to 3 decimal places
+# Round to 2 decimal places
 round(8.6178, 2)
 ```
 
@@ -383,24 +383,24 @@ will need to learn do so but for now you don't need to.
 
 You can do many things with a standard R installation and it can be extenedd using 
 contributed packages. Packages are like apps for R. They can contain functions, data 
-and documentation. We will use the `tidyverse` package[^tidyverse] to see this in practice.
+and documentation.
 
-## `tidyverse` package
+## `tidyverse`
 
-*** EXPLAIN TIDYVERSE HERE***
+The `tidyverse` package[^tidyverse] is a collection of packages the lets you import, 
+manipulate, explore, visualise and model data in a harmonised and consistent way which 
+helps you to be more productive.We will use the `tidyverse` to visualise and summarise 
+data. 
 
-## Must do
 
-You must have the "`tidyverse`" package installed to continue. Please install it now
-using:
+## To continue please install the `tidyverse` package
 ```{r installTidyverse, echo=TRUE, eval=FALSE}
 install.packages("tidyverse")
 ```
 
-## Package usage
+## Loading packages
 
-To be able to use the `tidyverse` (or any other) package you have use the `library()` 
-function to load it. Please run the following in R:
+To use the `tidyverse` package load it using the `library()` function:
 ```{r usePackage}
 library(tidyverse)
 ```
