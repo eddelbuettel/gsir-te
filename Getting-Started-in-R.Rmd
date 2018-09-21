@@ -21,7 +21,7 @@ abstract: |
   Are you curious to learn what R can do for you? Do you want to see how it works? If so, 
   then this "Getting Started" guide is for you which introduces you to some key concepts 
   using realistic examples. Using a real life dataset, it will also show you how to 
-  produce graphs and summary statistics using the "tidyverse". 
+  produce graphs and summary statistics using the "tidyverse" package. 
 
 # Optional: Acknowledgements
 acknowledgements: |
@@ -97,14 +97,14 @@ update_geom_defaults("boxplot", list(outlier.size = 0.5))
 
 # Preface
 
-This "Getting Started" guide will give you a flavour of what is R[^baseR] and the 
+This "Getting Started" guide will give you a flavour of what R[^baseR] and the 
 tidyverse can do for you. To get the most out of this guide, read it whilst 
 doing the examples and exercises using RStudio[^rstudio]^. 
 
 ## Experiment Safely
 
 Be brave and experiment with commands and options as it is an essential part of the 
-learning process. Yes things can (and will) go "wrong", like, getting error messages or 
+learning process. Things can (and will) go "wrong", like, getting error messages or 
 deleting things that you created from using this guide. You can recover from most situations 
 (e.g. by restarting R). To do this "safely" start with a *fresh* R session without any 
 other data loaded (otherwise you could lose it). 
@@ -118,13 +118,13 @@ Make sure that you have:
 1. R and RStudio installed
 2. Files downloaded from: [https://ilustat.com/resources/](https://ilustat.com/resources/) **[UPDATE]**
 3. Double click on the file `"GettingStartedinR.Rproj"` which will open RStudio automatically 
-with the right set up to work though this guide.
+with the right set up to work through this guide.
 
 ## Starting R & RStudio
 
 R starts automatically when you open RStudio (see Figure \ref{fig:rstudio}). The console 
 starts with some information include about the version number, license and contributors. 
-The last line is a standard prompt "`>`" that indicates R is ready and expecting a 
+The last line is a standard prompt "`>`" that indicates R is ready and expecting
 instructions to do something.
 
 ```{r RStudioScreenshot, out.width="3.4in", fig.show='hold', fig.cap="\\label{fig:rstudio}RStudio Screenshot with Console on the left and  Help tab in the bottom right", echo=FALSE}
@@ -135,13 +135,14 @@ include_graphics("RStudio-Screenshot.png")
 
 When you quit RStudio you will be asked whether to `Save workspace` with two options:
 
-* "Yes" -- Your current R workspace will be restored next time you open RStudio.
+* "Yes" -- Your current R workspace (containing the work that you have done) will be 
+restored next time you open RStudio.
 * "No" -- You will start with a fresh R session next time you open RStudio. For now 
 select "*No*" to prevent errors being carried over from previous sessions).
 
 # R Help
 
-I strongly recommend that you learn how to use R's useful and extensive built in help 
+I strongly recommend that you learn how to use R's useful and extensive built-in help 
 system as it is an essential part of finding solutions to your R programming problems. 
 The easiest way is to use RStudio's "Help" tab which has a search box (see Figure 
 \ref{fig:rstudio}). 
@@ -149,7 +150,7 @@ The easiest way is to use RStudio's "Help" tab which has a search box (see Figur
 ## `help()` function
 
 From the R "Console" you can use the `help()` function or `?`. For example, try the following two 
-commands (which give the same thing):
+commands (which give the same result):
 ```{r helpttest, echo=TRUE, eval=FALSE}
 help(mean)
 ?mean
@@ -180,7 +181,7 @@ It is good to investigate the different options.
 
 ## Exercise
 
-Try the following (without worrying about what the help means):
+Try the following:
 
 * `help(median)`
 * `?sd` 
@@ -198,16 +199,14 @@ height
 
 ## Warning: R is case sensitive
 
-`age`, `Age` and `AGE` are different:
+`age` and `AGE` are different:
 ```{r caseSens1}
 age <- 10
-Age <- 50
-AGE <- 99
+AGE <- 50
 ```
 
 ```{r caseSens2}
 age
-Age
 AGE
 ```
 
@@ -222,9 +221,9 @@ Name; Age; City
 
 ## Comments
 
-It is useful to put human readable comments in your programs that R ignores. These comments
-could help the future you when you go back to your program. R comments start with a hash sign 
-(`#`). Everything after the hash to the end of the line will be ignored by R.
+It is useful to put human readable comments in your programs. These comments could 
+help the future you when you go back to your program. R comments start with a hash 
+sign (`#`). Everything after the hash to the end of the line will be ignored by R.
 ```{r comments}
 # This comment line will be ignored when run.
 AGE       # Text after "#" is ignored.
@@ -251,8 +250,7 @@ using the left ($\leftarrow$) and right arrow ($\rightarrow$) keys.
 You can use R as a calculator. Try the following:
 ```{r calcBasic}
 2 + 3           
-(5*6) - 7     
-(39/7) - 6.9
+(5*11)/4 - 7     
 # ^ = "to the power of"
 7^3 
 ```
@@ -293,7 +291,7 @@ roomArea
 
 ## Text objects
 
-You can also assign text to a objects too.
+You can also assign text to an objects.
 ```{r assignText}
 Greeting <- "Hello World!"
 Greeting
@@ -381,7 +379,7 @@ will need to learn do so but for now you don't need to.
 
 ## R Packages
 
-You can do many things with a standard R installation and it can be extenedd using 
+You can do many things with a standard R installation and it can be extended using 
 contributed packages. Packages are like apps for R. They can contain functions, data 
 and documentation.
 
@@ -389,7 +387,7 @@ and documentation.
 
 The `tidyverse` package[^tidyverse] is a collection of packages the lets you import, 
 manipulate, explore, visualise and model data in a harmonised and consistent way which 
-helps you to be more productive.We will use the `tidyverse` to visualise and summarise 
+helps you to be more productive. We will use the `tidyverse` to visualise and summarise 
 data. 
 
 
@@ -520,8 +518,8 @@ ggplot(CW, aes(Time, weight)) + geom_point()
 
 ## Exercise
 
-Switch the variables `Time` and `weight` in code used for the second plot (on the right)?
-What is your opinion on this new plot compared to the one above?
+Switch the variables `Time` and `weight` in code used for the plot on the right?
+What do you think of this new plot compared to the original?
 
 ## Add colour for `Diet`
 The graph above does not differentiate between the diets. Let's use a different colour for
@@ -539,26 +537,30 @@ each other with diet 1 at the bottom and diet 4 on top.
 
 ## Factor Variables
 
-Before we continue and we will make an important change to the `CW` dataset by making
+Before we continue, we have to make an important change to the `CW` dataset by making
 `Diet` and `Time` *factor variables*. This means that R will see them as variables that
-have different categories (see the `<fct>` variables below). It will simplify our coding. 
-The next section will explain the `mutate()` function.
+have different categories (see the `<fct>` variables below). Currently R sees them as 
+continuous variables. It will simplify our coding. The next section will explain the 
+`mutate()` function.
 ```{r makeFactor}
 CW <- mutate(CW, Diet = factor(Diet))
 CW <- mutate(CW, Time = factor(Time))
 glimpse(CW)
 ```
 
-## `geom_jitter()` function
-To overcome the issue of ovelapping points we can ***jitter*** the points using 
-`geom_jitter()` and plot each diet separately using `facet_wrap()`:
+## `facet_wrap()` function
+To plot each diet separately in a grid using `facet_wrap()`:
 ```{r jitterPlot}
 # Adding jitter to the points
 ggplot(CW, aes(Time, weight, colour=Diet)) +
-  geom_jitter() +
+  geom_point() +
   facet_wrap(~Diet) +
   theme(legend.position = "bottom")
 ```
+
+## Exercise
+To overcome the issue of ovelapping points we can ***jitter*** the points using 
+`geom_jitter()`. Replace the `geom_point()` above with `geom_jitter()`.
 
 ## Interpretation
 
@@ -582,8 +584,9 @@ ggplot(CW, aes(Time, weight,
 
 ## Interpretation
 
-This shows that diet 3 group of chicks has the highest mean weight gains by the end of 
-the experiment. However we don't see the variation (uncertainty) in the data.
+This plot is easier to interpret then the previous plots. It shows that diet 3 group
+of chicks has the highest mean weight gains by the end of the experiment. However 
+we don't see the variation (uncertainty) in the data.
 
 ## Exercise
 
@@ -642,8 +645,9 @@ ggplot(CW, aes(Time, weight, group=Diet,
 options(tibble.print_min=3, tibble.print_max=3)
 ```
 
-In this section we will learning how wrangle (manipulate) datasets using the tidyverse.
-We will look at the `mutate()`, `select()`, `rename()`, `filter()` and `arrange()` functions.
+In this section we will learning how to wrangle (manipulate) datasets using the `tidyverse`
+package. Let's start with the `mutate()`, `select()`, `rename()`, `filter()` and `arrange()` 
+functions.
 
 ## `mutate()`
 
@@ -744,7 +748,7 @@ each function doing its thing and passing it to the next.
 
 # Chick Weight: Summary Statistics
 
-Having done some data viualisations we will quantify the effects of the diets using
+Having done some data visualisations we will quantify the effects of the diets using
 summmary statistics. First we will look at the number of observations and the mean by
 diet and time.
 ```{r mnsdStatCW}
@@ -807,7 +811,7 @@ and diet 4 lost 1 from 10. This could be a sign of some issues (e.g. safety).
 
 Information on bias reduction measures is not given and is not available either[^CWfup].
 We don't know if the chicks were fairly and appropriately randomised to the diets and 
-that the groups are compariable (e.g., same breed of chicks, sex (gender) balance). 
+whether the groups are compariable (e.g., same breed of chicks, sex (gender) balance). 
 Hence we should be very cautious with drawing conclusion and taking actions with this 
 data.
 

@@ -40,7 +40,7 @@ Are you curious to learn what R can do for you? Do you want to see how
 it works? If so, then this ``Getting Started'' guide is for you which
 introduces you to some key concepts using realistic examples. Using a
 real life dataset, it will also show you how to produce graphs and
-summary statistics using the ``tidyverse''.
+summary statistics using the ``tidyverse'' package.
 \end{abstract}
 
 \dates{This version was compiled on \today}
@@ -64,7 +64,7 @@ summary statistics using the ``tidyverse''.
 
 \section{Preface}\label{preface}
 
-This ``Getting Started'' guide will give you a flavour of what is
+This ``Getting Started'' guide will give you a flavour of what
 R\footnote{R project: \url{https://www.r-project.org/}} and the
 tidyverse can do for you. To get the most out of this guide, read it
 whilst doing the examples and exercises using RStudio\footnote{RStudio
@@ -73,11 +73,11 @@ whilst doing the examples and exercises using RStudio\footnote{RStudio
 \subsection{Experiment Safely}\label{experiment-safely}
 
 Be brave and experiment with commands and options as it is an essential
-part of the learning process. Yes things can (and will) go ``wrong'',
-like, getting error messages or deleting things that you created from
-using this guide. You can recover from most situations (e.g.~by
-restarting R). To do this ``safely'' start with a \emph{fresh} R session
-without any other data loaded (otherwise you could lose it).
+part of the learning process. Things can (and will) go ``wrong'', like,
+getting error messages or deleting things that you created from using
+this guide. You can recover from most situations (e.g.~by restarting R).
+To do this ``safely'' start with a \emph{fresh} R session without any
+other data loaded (otherwise you could lose it).
 
 \section{Introduction}\label{introduction}
 
@@ -95,7 +95,7 @@ Make sure that you have:
   \textbf{{[}UPDATE{]}}
 \item
   Double click on the file \texttt{"GettingStartedinR.Rproj"} which will
-  open RStudio automatically with the right set up to work though this
+  open RStudio automatically with the right set up to work through this
   guide.
 \end{enumerate}
 
@@ -105,7 +105,7 @@ R starts automatically when you open RStudio (see Figure
 \ref{fig:rstudio}). The console starts with some information include
 about the version number, license and contributors. The last line is a
 standard prompt ``\texttt{\textgreater{}}'' that indicates R is ready
-and expecting a instructions to do something.
+and expecting instructions to do something.
 
 \begin{figure}[H]
 
@@ -124,8 +124,8 @@ When you quit RStudio you will be asked whether to
 \begin{itemize}
 \tightlist
 \item
-  ``Yes'' -- Your current R workspace will be restored next time you
-  open RStudio.
+  ``Yes'' -- Your current R workspace (containing the work that you have
+  done) will be restored next time you open RStudio.
 \item
   ``No'' -- You will start with a fresh R session next time you open
   RStudio. For now select ``\emph{No}'' to prevent errors being carried
@@ -135,7 +135,7 @@ When you quit RStudio you will be asked whether to
 \section{R Help}\label{r-help}
 
 I strongly recommend that you learn how to use R's useful and extensive
-built in help system as it is an essential part of finding solutions to
+built-in help system as it is an essential part of finding solutions to
 your R programming problems. The easiest way is to use RStudio's
 ``Help'' tab which has a search box (see Figure \ref{fig:rstudio}).
 
@@ -144,7 +144,7 @@ function}{help() function}}\label{help-function}
 
 From the R ``Console'' you can use the \texttt{help()} function or
 \texttt{?}. For example, try the following two commands (which give the
-same thing):
+same result):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -215,7 +215,7 @@ investigate the different options.
 
 \subsection{Exercise}\label{exercise}
 
-Try the following (without worrying about what the help means):
+Try the following:
 
 \begin{itemize}
 \tightlist
@@ -251,13 +251,12 @@ shows its value):
 \subsection{Warning: R is case
 sensitive}\label{warning-r-is-case-sensitive}
 
-\texttt{age}, \texttt{Age} and \texttt{AGE} are different:
+\texttt{age} and \texttt{AGE} are different:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{age <-}\StringTok{ }\DecValTok{10}
-\NormalTok{Age <-}\StringTok{ }\DecValTok{50}
-\NormalTok{AGE <-}\StringTok{ }\DecValTok{99}
+\NormalTok{AGE <-}\StringTok{ }\DecValTok{50}
 \end{Highlighting}
 \end{Shaded}
 
@@ -275,25 +274,13 @@ sensitive}\label{warning-r-is-case-sensitive}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Age}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{ShadedResult}
-\begin{verbatim}
-#  [1] 50
-\end{verbatim}
-\end{ShadedResult}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{AGE}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{ShadedResult}
 \begin{verbatim}
-#  [1] 99
+#  [1] 50
 \end{verbatim}
 \end{ShadedResult}
 
@@ -325,10 +312,10 @@ separated by a semicolon ``\texttt{;}''.
 
 \subsection{Comments}\label{comments}
 
-It is useful to put human readable comments in your programs that R
-ignores. These comments could help the future you when you go back to
-your program. R comments start with a hash sign (\texttt{\#}).
-Everything after the hash to the end of the line will be ignored by R.
+It is useful to put human readable comments in your programs. These
+comments could help the future you when you go back to your program. R
+comments start with a hash sign (\texttt{\#}). Everything after the hash
+to the end of the line will be ignored by R.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -339,7 +326,7 @@ Everything after the hash to the end of the line will be ignored by R.
 
 \begin{ShadedResult}
 \begin{verbatim}
-#  [1] 99
+#  [1] 50
 \end{verbatim}
 \end{ShadedResult}
 
@@ -384,25 +371,13 @@ You can use R as a calculator. Try the following:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{(}\DecValTok{5}\OperatorTok{*}\DecValTok{6}\NormalTok{) }\OperatorTok{-}\StringTok{ }\DecValTok{7}     
+\NormalTok{(}\DecValTok{5}\OperatorTok{*}\DecValTok{11}\NormalTok{)}\OperatorTok{/}\DecValTok{4} \OperatorTok{-}\StringTok{ }\DecValTok{7}     
 \end{Highlighting}
 \end{Shaded}
 
 \begin{ShadedResult}
 \begin{verbatim}
-#  [1] 23
-\end{verbatim}
-\end{ShadedResult}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{(}\DecValTok{39}\OperatorTok{/}\DecValTok{7}\NormalTok{) }\OperatorTok{-}\StringTok{ }\FloatTok{6.9}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{ShadedResult}
-\begin{verbatim}
-#  [1] -1.328571
+#  [1] 6.75
 \end{verbatim}
 \end{ShadedResult}
 
@@ -517,7 +492,7 @@ operator ``\texttt{\textless{}-}'':
 
 \subsection{Text objects}\label{text-objects}
 
-You can also assign text to a objects too.
+You can also assign text to an objects.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -750,7 +725,7 @@ for now you don't need to.
 \subsection{R Packages}\label{r-packages}
 
 You can do many things with a standard R installation and it can be
-extenedd using contributed packages. Packages are like apps for R. They
+extended using contributed packages. Packages are like apps for R. They
 can contain functions, data and documentation.
 
 \subsection{\texorpdfstring{\texttt{tidyverse}}{tidyverse}}\label{tidyverse}
@@ -758,7 +733,7 @@ can contain functions, data and documentation.
 The \texttt{tidyverse} package\footnote{Tidyverse:
   \url{https://www.tidyverse.org/}} is a collection of packages the lets
 you import, manipulate, explore, visualise and model data in a
-harmonised and consistent way which helps you to be more productive.We
+harmonised and consistent way which helps you to be more productive. We
 will use the \texttt{tidyverse} to visualise and summarise data.
 
 \subsection{\texorpdfstring{To continue please install the
@@ -978,8 +953,8 @@ Let's plot the weight data (vertical axis) over time (horizontal axis).
 \subsection{Exercise}\label{exercise-3}
 
 Switch the variables \texttt{Time} and \texttt{weight} in code used for
-the second plot (on the right)? What is your opinion on this new plot
-compared to the one above?
+the plot on the right? What do you think of this new plot compared to
+the original?
 
 \subsection{\texorpdfstring{Add colour for
 \texttt{Diet}}{Add colour for Diet}}\label{add-colour-for-diet}
@@ -1005,13 +980,13 @@ top.
 
 \subsection{Factor Variables}\label{factor-variables}
 
-Before we continue and we will make an important change to the
+Before we continue, we have to make an important change to the
 \texttt{CW} dataset by making \texttt{Diet} and \texttt{Time}
 \emph{factor variables}. This means that R will see them as variables
 that have different categories (see the
-\texttt{\textless{}fct\textgreater{}} variables below). It will simplify
-our coding. The next section will explain the \texttt{mutate()}
-function.
+\texttt{\textless{}fct\textgreater{}} variables below). Currently R sees
+them as continuous variables. It will simplify our coding. The next
+section will explain the \texttt{mutate()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1032,18 +1007,16 @@ function.
 \end{verbatim}
 \end{ShadedResult}
 
-\subsection{\texorpdfstring{\texttt{geom\_jitter()}
-function}{geom\_jitter() function}}\label{geom_jitter-function}
+\subsection{\texorpdfstring{\texttt{facet\_wrap()}
+function}{facet\_wrap() function}}\label{facet_wrap-function}
 
-To overcome the issue of ovelapping points we can \textbf{\emph{jitter}}
-the points using \texttt{geom\_jitter()} and plot each diet separately
-using \texttt{facet\_wrap()}:
+To plot each diet separately in a grid using \texttt{facet\_wrap()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Adding jitter to the points}
 \KeywordTok{ggplot}\NormalTok{(CW, }\KeywordTok{aes}\NormalTok{(Time, weight, }\DataTypeTok{colour=}\NormalTok{Diet)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
 \StringTok{  }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{Diet) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"bottom"}\NormalTok{)}
 \end{Highlighting}
@@ -1051,12 +1024,18 @@ using \texttt{facet\_wrap()}:
 
 \begin{center}\includegraphics{Getting-Started-in-R_files/figure-latex/jitterPlot-1} \end{center}
 
+\subsection{Exercise}\label{exercise-4}
+
+To overcome the issue of ovelapping points we can \textbf{\emph{jitter}}
+the points using \texttt{geom\_jitter()}. Replace the
+\texttt{geom\_point()} above with \texttt{geom\_jitter()}.
+
 \subsection{Interpretation}\label{interpretation-2}
 
 Diet 4 has the least variability but we can't really say anything about
 the mean effect of each diet.
 
-\subsection{Exercise}\label{exercise-4}
+\subsection{Exercise}\label{exercise-5}
 
 For the \texttt{legend.position} try using ``top'', ``left'' and
 ``none''. Do we really need a legend for this plot?
@@ -1078,11 +1057,12 @@ Next we will plot the mean changes over time for each diet using the
 
 \subsection{Interpretation}\label{interpretation-3}
 
-This shows that diet 3 group of chicks has the highest mean weight gains
-by the end of the experiment. However we don't see the variation
-(uncertainty) in the data.
+This plot is easier to interpret then the previous plots. It shows that
+diet 3 group of chicks has the highest mean weight gains by the end of
+the experiment. However we don't see the variation (uncertainty) in the
+data.
 
-\subsection{Exercise}\label{exercise-5}
+\subsection{Exercise}\label{exercise-6}
 
 What happens when you add \texttt{geom\_point()} to the plot above?
 Don't forget the \texttt{+}. Does it make a difference if you put it
@@ -1114,7 +1094,7 @@ Looking at the graphs above we can say that diet 3 seems to have the
 most ``average'' weight gain but it has more variation than diet 4. We
 will have to look at the summary statistics to confirm this.
 
-\subsection{Exercise}\label{exercise-6}
+\subsection{Exercise}\label{exercise-7}
 
 Add the following information to the the above plot:
 
@@ -1150,9 +1130,10 @@ Let's finish with a plot that you might include in a publication.
 \section{Tidyverse: Data Wrangling
 Basics}\label{tidyverse-data-wrangling-basics}
 
-In this section we will learning how wrangle (manipulate) datasets using
-the tidyverse. We will look at the \texttt{mutate()}, \texttt{select()},
-\texttt{rename()}, \texttt{filter()} and \texttt{arrange()} functions.
+In this section we will learning how to wrangle (manipulate) datasets
+using the \texttt{tidyverse} package. Let's start with the
+\texttt{mutate()}, \texttt{select()}, \texttt{rename()},
+\texttt{filter()} and \texttt{arrange()} functions.
 
 \subsection{\texorpdfstring{\texttt{mutate()}}{mutate()}}\label{mutate}
 
@@ -1331,7 +1312,7 @@ Changes the order of the observations (rows).
 \end{verbatim}
 \end{ShadedResult}
 
-\subsection{Exercise}\label{exercise-7}
+\subsection{Exercise}\label{exercise-8}
 
 What does the \texttt{desc()} do? Try using \texttt{desc(Time)}.
 
@@ -1407,7 +1388,7 @@ and passing it to the next.
 \section{Chick Weight: Summary
 Statistics}\label{chick-weight-summary-statistics}
 
-Having done some data viualisations we will quantify the effects of the
+Having done some data visualisations we will quantify the effects of the
 diets using summmary statistics. First we will look at the number of
 observations and the mean by diet and time.
 
@@ -1539,7 +1520,7 @@ either\footnote{I contacted the source authors and kindly received the
   final-year, rather than theses, so, unfortunately, it's unlikely that
   any record remains, particularly after so many years.''}}. We don't
 know if the chicks were fairly and appropriately randomised to the diets
-and that the groups are compariable (e.g., same breed of chicks, sex
+and whether the groups are compariable (e.g., same breed of chicks, sex
 (gender) balance). Hence we should be very cautious with drawing
 conclusion and taking actions with this data.
 
