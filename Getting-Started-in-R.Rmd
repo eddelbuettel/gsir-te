@@ -24,8 +24,8 @@ abstract: |
   produce graphs and summary statistics using the "tidyverse" package. 
 
 # Optional: Acknowledgements
-acknowledgements: |
-  [Names] for reviewing the draft versions of this document.
+# acknowledgements: |
+#  [Names] for reviewing the draft versions of this document.
   
 # Optional: One or more keywords
 keywords:
