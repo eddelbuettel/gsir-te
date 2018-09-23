@@ -105,9 +105,9 @@ doing the examples and exercises using RStudio[^rstudio]^.
 
 Be brave and experiment with commands and options as it is an essential part of the 
 learning process. Things can (and will) go "wrong", like, getting error messages or 
-deleting things that you created from using this guide. You can recover from most situations 
-(e.g. by restarting R). To do this "safely" start with a *fresh* R session without any 
-other data loaded (otherwise you could lose it). 
+deleting things that you created from using this guide. You can recover from most 
+situations (e.g. by restarting R). To do this "safely" start with a *fresh* R session
+without any other data loaded (otherwise you could lose it). 
 
 # Introduction
 
@@ -123,7 +123,7 @@ with the right set up to work through this guide.
 ## Starting R & RStudio
 
 R starts automatically when you open RStudio (see Figure \ref{fig:rstudio}). The console 
-starts with some information include about the version number, license and contributors. 
+starts with information about the version number, license and contributors. 
 The last line is a standard prompt "`>`" that indicates R is ready and expecting
 instructions to do something.
 
@@ -257,7 +257,7 @@ You can use R as a calculator. Try the following:
 
 ## Other math functions
 
-You can also use standard mathematical functions that are typically found on a scientic
+You can also use standard mathematical functions that are typically found on a scientific
 calculator.
 
 * Trigonometric: `sin()`, `cos()`, `tan()`, `acos()`, `asin()`, `atan()` 
@@ -451,7 +451,9 @@ it makes sense. Now we can import the data as follows:
 ```{r readCW}
 CW <- read_csv("ChickWeight.csv")
 ```
-All columns (variables) have been read in as numeric values (i.e. `col_double()`)
+All columns (variables) have been read in as numeric values (i.e. `col_double()`) but
+you may see that they are read in a integer (i.e. `col_int()`) due to operating system
+differences.
 
 ## Important Note
 
@@ -538,10 +540,9 @@ each other with diet 1 at the bottom and diet 4 on top.
 ## Factor Variables
 
 Before we continue, we have to make an important change to the `CW` dataset by making
-`Diet` and `Time` *factor variables*. This means that R will see them as variables that
-have different categories (see the `<fct>` variables below). Currently R sees them as 
-continuous variables. It will simplify our coding. The next section will explain the 
-`mutate()` function.
+`Diet` and `Time` *factor variables*. This means that R will treat them as categorical 
+variables (see the `<fct>` variables below) instead of continuous variables. It will 
+simplify our coding. The next section will explain the  `mutate()` function.
 ```{r makeFactor}
 CW <- mutate(CW, Diet = factor(Diet))
 CW <- mutate(CW, Time = factor(Time))
@@ -645,7 +646,7 @@ ggplot(CW, aes(Time, weight, group=Diet,
 options(tibble.print_min=3, tibble.print_max=3)
 ```
 
-In this section we will learning how to wrangle (manipulate) datasets using the `tidyverse`
+In this section we will learn how to wrangle (manipulate) datasets using the `tidyverse`
 package. Let's start with the `mutate()`, `select()`, `rename()`, `filter()` and `arrange()` 
 functions.
 
@@ -781,18 +782,18 @@ sumCW
 Let's make the summaries "prettier", say, for a report or publication.
 ```{r prettySum}
 prettySumCW <- sumCW %>% 
-  mutate(Mean_SD = str_c(format(Mean, digits=1),
-            " (", format(SD, digits=2), ")")) %>% 
-  mutate(Range = str_c(Min, " - ", Max)) %>% 
-  select(Diet, Time, N, Mean_SD, Median, Range) %>%
-  arrange(Diet, Time)
+ mutate(Mean_SD = str_c(format(Mean, digits=1),
+           " (", format(SD, digits=2), ")")) %>% 
+ mutate(Range = str_c(Min, " - ", Max)) %>% 
+ select(Diet, Time, N, Mean_SD, Median, Range) %>%
+ arrange(Diet, Time)
 prettySumCW
 ```
 ## Final Table
 Eventually you should be able to produce[^kable] a publication ready version as follows:
 ```{r prettyKable, echo = FALSE}
 prettySumCW %>% 
-  kable("latex", booktabs = TRUE, linesep = "", align = "cccrc") %>% 
+kable("latex", booktabs = TRUE, linesep = "", align = "cccrc") %>% 
   kable_styling(position = "center") %>% 
   row_spec(0, bold = TRUE) %>%
   row_spec(c(2, 4, 6, 8), background = "lightgray") 

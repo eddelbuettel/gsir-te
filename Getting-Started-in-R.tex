@@ -102,10 +102,10 @@ Make sure that you have:
 \subsection{Starting R \& RStudio}\label{starting-r-rstudio}
 
 R starts automatically when you open RStudio (see Figure
-\ref{fig:rstudio}). The console starts with some information include
-about the version number, license and contributors. The last line is a
-standard prompt ``\texttt{\textgreater{}}'' that indicates R is ready
-and expecting instructions to do something.
+\ref{fig:rstudio}). The console starts with information about the
+version number, license and contributors. The last line is a standard
+prompt ``\texttt{\textgreater{}}'' that indicates R is ready and
+expecting instructions to do something.
 
 \begin{figure}[H]
 
@@ -397,7 +397,7 @@ You can use R as a calculator. Try the following:
 \subsection{Other math functions}\label{other-math-functions}
 
 You can also use standard mathematical functions that are typically
-found on a scientic calculator.
+found on a scientific calculator.
 
 \begin{itemize}
 \tightlist
@@ -832,7 +832,8 @@ data as follows:
 \end{ShadedResult}
 
 All columns (variables) have been read in as numeric values (i.e.
-\texttt{col\_double()})
+\texttt{col\_double()}) but you may see that they are read in a integer
+(i.e. \texttt{col\_int()}) due to operating system differences.
 
 \subsection{Important Note}\label{important-note}
 
@@ -982,11 +983,10 @@ top.
 
 Before we continue, we have to make an important change to the
 \texttt{CW} dataset by making \texttt{Diet} and \texttt{Time}
-\emph{factor variables}. This means that R will see them as variables
-that have different categories (see the
-\texttt{\textless{}fct\textgreater{}} variables below). Currently R sees
-them as continuous variables. It will simplify our coding. The next
-section will explain the \texttt{mutate()} function.
+\emph{factor variables}. This means that R will treat them as
+categorical variables (see the \texttt{\textless{}fct\textgreater{}}
+variables below) instead of continuous variables. It will simplify our
+coding. The next section will explain the \texttt{mutate()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1130,10 +1130,10 @@ Let's finish with a plot that you might include in a publication.
 \section{Tidyverse: Data Wrangling
 Basics}\label{tidyverse-data-wrangling-basics}
 
-In this section we will learning how to wrangle (manipulate) datasets
-using the \texttt{tidyverse} package. Let's start with the
-\texttt{mutate()}, \texttt{select()}, \texttt{rename()},
-\texttt{filter()} and \texttt{arrange()} functions.
+In this section we will learn how to wrangle (manipulate) datasets using
+the \texttt{tidyverse} package. Let's start with the \texttt{mutate()},
+\texttt{select()}, \texttt{rename()}, \texttt{filter()} and
+\texttt{arrange()} functions.
 
 \subsection{\texorpdfstring{\texttt{mutate()}}{mutate()}}\label{mutate}
 
@@ -1457,11 +1457,11 @@ Let's make the summaries ``prettier'', say, for a report or publication.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{prettySumCW <-}\StringTok{ }\NormalTok{sumCW }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Mean_SD =} \KeywordTok{str_c}\NormalTok{(}\KeywordTok{format}\NormalTok{(Mean, }\DataTypeTok{digits=}\DecValTok{1}\NormalTok{),}
-            \StringTok{" ("}\NormalTok{, }\KeywordTok{format}\NormalTok{(SD, }\DataTypeTok{digits=}\DecValTok{2}\NormalTok{), }\StringTok{")"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Range =} \KeywordTok{str_c}\NormalTok{(Min, }\StringTok{" - "}\NormalTok{, Max)) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(Diet, Time, N, Mean_SD, Median, Range) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(Diet, Time)}
+\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Mean_SD =} \KeywordTok{str_c}\NormalTok{(}\KeywordTok{format}\NormalTok{(Mean, }\DataTypeTok{digits=}\DecValTok{1}\NormalTok{),}
+           \StringTok{" ("}\NormalTok{, }\KeywordTok{format}\NormalTok{(SD, }\DataTypeTok{digits=}\DecValTok{2}\NormalTok{), }\StringTok{")"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Range =} \KeywordTok{str_c}\NormalTok{(Min, }\StringTok{" - "}\NormalTok{, Max)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{ }\KeywordTok{select}\NormalTok{(Diet, Time, N, Mean_SD, Median, Range) }\OperatorTok{%>%}
+\StringTok{ }\KeywordTok{arrange}\NormalTok{(Diet, Time)}
 \NormalTok{prettySumCW}
 \end{Highlighting}
 \end{Shaded}
