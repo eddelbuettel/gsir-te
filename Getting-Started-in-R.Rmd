@@ -18,10 +18,10 @@ doi: "http://ilustat.com/"
 
 # Abstract
 abstract: |
-  Are you curious to learn what R can do for you? Do you want to see how it works? If so, 
-  then this "Getting Started" guide is for you which introduces you to some key concepts 
-  using realistic examples. Using a real life dataset, it will also show you how to 
-  produce graphs and summary statistics using the "tidyverse" package. 
+  Are you curious to learn what R can do for you? Do you want to see how it works? 
+  Yes, then this "Getting Started" guide is for you. It uses realistic examples and a 
+  real life dataset to manipulate, visualise and summarise data. By the end of it 
+  you will have an overview of the key concepts of R and the "tidyverse" package. 
 
 # Optional: Acknowledgements
 # acknowledgements: |
@@ -105,7 +105,7 @@ doing the examples and exercises using RStudio[^rstudio]^.
 
 Be brave and experiment with commands and options as it is an essential part of the 
 learning process. Things can (and will) go "wrong", like, getting error messages or 
-deleting things that you created from using this guide. You can recover from most 
+deleting things that you create by using this guide. You can recover from most 
 situations (e.g. by restarting R). To do this "safely" start with a *fresh* R session
 without any other data loaded (otherwise you could lose it). 
 
@@ -113,10 +113,10 @@ without any other data loaded (otherwise you could lose it).
 
 ## Before Starting
 
-Make sure that you have:
+Make sure that:
 
-1. R and RStudio installed
-2. Files downloaded from: [https://ilustat.com/resources/](https://ilustat.com/resources/) **[UPDATE]**
+1. R and RStudio are installed
+2. Guide files are downloaded from: [https://ilustat.com/resources/](https://ilustat.com/resources/) **[UPDATE]**
 3. Double click on the file `"GettingStartedinR.Rproj"` which will open RStudio automatically 
 with the right set up to work through this guide.
 
@@ -143,9 +143,7 @@ select "*No*" to prevent errors being carried over from previous sessions).
 # R Help
 
 I strongly recommend that you learn how to use R's useful and extensive built-in help 
-system as it is an essential part of finding solutions to your R programming problems. 
-The easiest way is to use RStudio's "Help" tab which has a search box (see Figure 
-\ref{fig:rstudio}). 
+system which is an essential part of finding solutions to your R programming problems. 
 
 ## `help()` function
 
@@ -171,6 +169,13 @@ Use the `example()` function to run the examples at the end of the help for a fu
 example(mean)
 ```
 
+## RStudio Help 
+
+Rstudio provides search box in the "Help" tab to make your life easier (see Figure 
+\ref{fig:rstudio}). 
+
+
+
 ## Searching On-line For R Help
 
 There are a lot of on-line resources that can help. However you must understand that 
@@ -191,7 +196,7 @@ Try the following:
 
 In R speak, scalars, vectors/variables and datasets are called ***objects***. To create
 objects (things) we have to use the assignment operator "`<-`". For example, below, object 
-`height` is assigned a value of 173 (type `height` shows its value):
+`height` is assigned a value of 173 (typing `height` shows its value):
 ```{r createObjs}
 height <- 173
 height
@@ -199,15 +204,15 @@ height
 
 ## Warning: R is case sensitive
 
-`age` and `AGE` are different:
+`age` and `AgE` are different:
 ```{r caseSens1}
 age <- 10
-AGE <- 50
+AgE <- 50
 ```
 
 ```{r caseSens2}
 age
-AGE
+AgE
 ```
 
 ## New lines
@@ -226,7 +231,7 @@ help the future you when you go back to your program. R comments start with a ha
 sign (`#`). Everything after the hash to the end of the line will be ignored by R.
 ```{r comments}
 # This comment line will be ignored when run.
-AGE       # Text after "#" is ignored.
+City     # Text after "#" is ignored.
 ```
 
 ## Warning
@@ -270,14 +275,18 @@ calculator.
 sqrt(2)          
 # Round down to nearest integer
 floor(8.6178)
-# Round up to nearest integer
-ceiling(8.6178)
 # Round to 2 decimal places
 round(8.6178, 2)
 ```
 
 ## Exercise
-Try out five of the mathemtical functions above, using the help page where necessary. 
+
+What do the following pairs of examples do?
+
+1. "`ceiling(18.33)`" and "`signif(9488, 2)`"
+2. "`exp(1)`" and "`log10(1000)`"
+3. "`sign(-2.9)`" and "`sign(32)`" 
+4. "`abs(-27.9)`" and "`abs(11.9)`"
 
 # Some More R Concepts
 
@@ -350,6 +359,13 @@ rm(x, x1, x2, x3, xm, r1, s1, AGE, age)
 ls()
 ```
 
+## Exercise
+
+Calculate the `gross` by adding the `tax` to `net` amount.
+```
+  net <- c(108.99, 291.42, 16.28, 62.29, 31.77)
+  tax <- c(22.89, 17.49, 0.98, 13.08, 6.67)
+```
 
 # R Functions and Packages
 
@@ -391,7 +407,7 @@ helps you to be more productive. We will use the `tidyverse` to visualise and su
 data. 
 
 
-## To continue please install the `tidyverse` package
+## MUST DO: Ensure that the `tidyverse` package is installed
 ```{r installTidyverse, echo=TRUE, eval=FALSE}
 install.packages("tidyverse")
 ```
@@ -503,8 +519,8 @@ original data file `ChickWeight.csv`?
 
 ## `ggplot2` Package
 
-To visualise the chick weight data, we will use the `ggplot2` package (included in the
-tidyverse). Our interest is in seeing how the *weight changes over time for the chicks by
+To visualise the chick weight data, we will use the `ggplot2` package (part of the
+`tidyverse`). Our interest is in seeing how the *weight changes over time for the chicks by
 diet*. For the moment don't worry too much about the details just try to build your own 
 understanding and logic. To learn more try different things even if you get an error
 messages.
@@ -534,7 +550,7 @@ ggplot(CW,aes(Time,weight,colour=factor(Diet))) +
 ## Interpretation
 
 It is difficult to conclude anything from this graph as the points are printed on top of
-each other with diet 1 at the bottom and diet 4 on top.
+one another (with diet 1 underneath and diet 4 at the top). 
 
 
 ## Factor Variables
@@ -561,12 +577,13 @@ ggplot(CW, aes(Time, weight, colour=Diet)) +
 
 ## Exercise
 To overcome the issue of ovelapping points we can ***jitter*** the points using 
-`geom_jitter()`. Replace the `geom_point()` above with `geom_jitter()`.
+`geom_jitter()`. Replace the `geom_point()` above with `geom_jitter()`. What do you
+observe?
 
 ## Interpretation
 
 Diet 4 has the least variability but we can't really say anything about the mean effect
-of each diet.
+of each diet although diet 3 seems to have the highest.
 
 ## Exercise 
 
@@ -585,15 +602,14 @@ ggplot(CW, aes(Time, weight,
 
 ## Interpretation
 
-This plot is easier to interpret then the previous plots. It shows that diet 3 group
-of chicks has the highest mean weight gains by the end of the experiment. However 
-we don't see the variation (uncertainty) in the data.
+We can see that diet 3 has the highest mean weight gains by the end of the experiment but
+we don't have any information about the variation (uncertainty) in the data.
 
 ## Exercise
 
 What happens when you add `geom_point()` to the plot above? Don't forget the `+`. Does it
-make a difference if you put it before the `stat_summary(...)` line? Hint: Look very carefully
-at how the graph is plotted.
+make a difference if you put it before or after the `stat_summary(...)` line? Hint: Look 
+very carefully at how the graph is plotted.
 
 ## Box-whisker plot
 
@@ -609,9 +625,8 @@ ggplot(CW, aes(Time, weight, colour=Diet)) +
 
 ## Interpretation
 
-Looking at the graphs above we can say that diet 3 seems to have the most "average"
-weight gain but it has more variation than diet 4. We will have to look at the summary
-statistics to confirm this.
+Diet 3 seems to have the highest "average" weight gain but it has more variation 
+than diet 4 which is consistent with our findings so far. 
 
 ## Exercise
 
@@ -749,9 +764,10 @@ each function doing its thing and passing it to the next.
 
 # Chick Weight: Summary Statistics
 
-Having done some data visualisations we will quantify the effects of the diets using
-summmary statistics. First we will look at the number of observations and the mean by
-diet and time.
+From the data visualisations above we concluded that the diet 3 has the highest mean 
+and diet 4 the least variation. In this section, we will quantify the effects of the 
+diets using summmary statistics. We start by looking at the number of observations 
+and the mean by **diet** and **time**.
 ```{r mnsdStatCW}
 mnsdCW <- CW %>% 
   group_by(Diet, Time) %>% 
@@ -759,12 +775,16 @@ mnsdCW <- CW %>%
   arrange(Diet, Time)
 mnsdCW
 ```
+
+## `group_by()` function 
+
 For each distinct combination of `Diet` and `Time`, the chick weight data is summarised 
 into the number of observations (`N`) and the mean (`Mean`) of `weight`.
 
+## Other summaries
+
 Let's also calculate the standard deviation, median, minimum and maximum values but only
-at days 0 (zero)
-and 21.
+at days 0 and 21.
 ```{r}
 sumCW <-  CW %>% 
   filter(Time %in% c(0, 21)) %>% 
@@ -796,7 +816,9 @@ prettySumCW %>%
 kable("latex", booktabs = TRUE, linesep = "", align = "cccrc") %>% 
   kable_styling(position = "center") %>% 
   row_spec(0, bold = TRUE) %>%
-  row_spec(c(2, 4, 6, 8), background = "lightgray") 
+  row_spec(c(2, 4, 6, 8), background = "lightgray")
+  # Uncomment below once bugs are fixed - https://github.com/haozhu233/kableExtra/issues/243 & 237
+  # column_spec(1, bold = T) %>%
   # collapse_rows(columns = 1, latex_hline = "none", valign = "top")
 ```
 

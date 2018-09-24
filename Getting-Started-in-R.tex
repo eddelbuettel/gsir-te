@@ -37,10 +37,10 @@
 
 \begin{abstract}
 Are you curious to learn what R can do for you? Do you want to see how
-it works? If so, then this ``Getting Started'' guide is for you which
-introduces you to some key concepts using realistic examples. Using a
-real life dataset, it will also show you how to produce graphs and
-summary statistics using the ``tidyverse'' package.
+it works? Yes, then this ``Getting Started'' guide is for you. It uses
+realistic examples and a real life dataset to manipulate, visualise and
+summarise data. By the end of it you will have an overview of the key
+concepts of R and the ``tidyverse'' package.
 \end{abstract}
 
 \dates{This version was compiled on \today}
@@ -73,24 +73,24 @@ whilst doing the examples and exercises using RStudio\footnote{RStudio
 
 Be brave and experiment with commands and options as it is an essential
 part of the learning process. Things can (and will) go ``wrong'', like,
-getting error messages or deleting things that you created from using
-this guide. You can recover from most situations (e.g.~by restarting R).
-To do this ``safely'' start with a \emph{fresh} R session without any
-other data loaded (otherwise you could lose it).
+getting error messages or deleting things that you create by using this
+guide. You can recover from most situations (e.g.~by restarting R). To
+do this ``safely'' start with a \emph{fresh} R session without any other
+data loaded (otherwise you could lose it).
 
 \section{Introduction}\label{introduction}
 
 \subsection{Before Starting}\label{before-starting}
 
-Make sure that you have:
+Make sure that:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  R and RStudio installed
+  R and RStudio are installed
 \item
-  Files downloaded from: \url{https://ilustat.com/resources/}
+  Guide files are downloaded from: \url{https://ilustat.com/resources/}
   \textbf{{[}UPDATE{]}}
 \item
   Double click on the file \texttt{"GettingStartedinR.Rproj"} which will
@@ -134,9 +134,8 @@ When you quit RStudio you will be asked whether to
 \section{R Help}\label{r-help}
 
 I strongly recommend that you learn how to use R's useful and extensive
-built-in help system as it is an essential part of finding solutions to
-your R programming problems. The easiest way is to use RStudio's
-``Help'' tab which has a search box (see Figure \ref{fig:rstudio}).
+built-in help system which is an essential part of finding solutions to
+your R programming problems.
 
 \subsection{\texorpdfstring{\texttt{help()}
 function}{help() function}}\label{help-function}
@@ -201,6 +200,11 @@ the help for a function:
 \end{verbatim}
 \end{ShadedResult}
 
+\subsection{RStudio Help}\label{rstudio-help}
+
+Rstudio provides search box in the ``Help'' tab to make your life easier
+(see Figure \ref{fig:rstudio}).
+
 \subsection{Searching On-line For R
 Help}\label{searching-on-line-for-r-help}
 
@@ -231,8 +235,8 @@ Try the following:
 In R speak, scalars, vectors/variables and datasets are called
 \textbf{\emph{objects}}. To create objects (things) we have to use the
 assignment operator ``\texttt{\textless{}-}''. For example, below,
-object \texttt{height} is assigned a value of 173 (type \texttt{height}
-shows its value):
+object \texttt{height} is assigned a value of 173 (typing
+\texttt{height} shows its value):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -250,12 +254,12 @@ shows its value):
 \subsection{Warning: R is case
 sensitive}\label{warning-r-is-case-sensitive}
 
-\texttt{age} and \texttt{AGE} are different:
+\texttt{age} and \texttt{AgE} are different:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{age <-}\StringTok{ }\DecValTok{10}
-\NormalTok{AGE <-}\StringTok{ }\DecValTok{50}
+\NormalTok{AgE <-}\StringTok{ }\DecValTok{50}
 \end{Highlighting}
 \end{Shaded}
 
@@ -273,7 +277,7 @@ sensitive}\label{warning-r-is-case-sensitive}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{AGE}
+\NormalTok{AgE}
 \end{Highlighting}
 \end{Shaded}
 
@@ -319,13 +323,13 @@ to the end of the line will be ignored by R.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# This comment line will be ignored when run.}
-\NormalTok{AGE       }\CommentTok{# Text after "#" is ignored.}
+\NormalTok{City     }\CommentTok{# Text after "#" is ignored.}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{ShadedResult}
 \begin{verbatim}
-#  [1] 50
+#  [1] "Lisbon"
 \end{verbatim}
 \end{ShadedResult}
 
@@ -440,19 +444,6 @@ found on a scientific calculator.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Round up to nearest integer}
-\KeywordTok{ceiling}\NormalTok{(}\FloatTok{8.6178}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{ShadedResult}
-\begin{verbatim}
-#  [1] 9
-\end{verbatim}
-\end{ShadedResult}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \CommentTok{# Round to 2 decimal places}
 \KeywordTok{round}\NormalTok{(}\FloatTok{8.6178}\NormalTok{, }\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
@@ -466,8 +457,20 @@ found on a scientific calculator.
 
 \subsection{Exercise}\label{exercise-1}
 
-Try out five of the mathemtical functions above, using the help page
-where necessary.
+What do the following pairs of examples do?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  ``\texttt{ceiling(18.33)}'' and ``\texttt{signif(9488,\ 2)}''
+\item
+  ``\texttt{exp(1)}'' and ``\texttt{log10(1000)}''
+\item
+  ``\texttt{sign(-2.9)}'' and ``\texttt{sign(32)}''
+\item
+  ``\texttt{abs(-27.9)}'' and ``\texttt{abs(11.9)}''
+\end{enumerate}
 
 \section{Some More R Concepts}\label{some-more-r-concepts}
 
@@ -645,7 +648,7 @@ Use function \texttt{ls()} to list the objects in your workspace. The
 
 \begin{ShadedResult}
 \begin{verbatim}
-#   [1] "age"        "Age"        "AGE"       
+#   [1] "age"        "Age"        "AgE"       
 #   [4] "City"       "Greeting"   "height"    
 #   [7] "Name"       "r1"         "roomArea"  
 #  [10] "roomLength" "roomWidth"  "s1"        
@@ -657,17 +660,39 @@ Use function \texttt{ls()} to list the objects in your workspace. The
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{rm}\NormalTok{(x, x1, x2, x3, xm, r1, s1, AGE, age)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{ShadedResult}
+\begin{verbatim}
+#  Warning in rm(x, x1, x2, x3, xm, r1, s1, AGE,
+#  age): object 'AGE' not found
+\end{verbatim}
+\end{ShadedResult}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{ls}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{ShadedResult}
 \begin{verbatim}
-#  [1] "Age"        "City"       "Greeting"  
-#  [4] "height"     "Name"       "roomArea"  
-#  [7] "roomLength" "roomWidth"
+#  [1] "Age"        "AgE"        "City"      
+#  [4] "Greeting"   "height"     "Name"      
+#  [7] "roomArea"   "roomLength" "roomWidth"
 \end{verbatim}
 \end{ShadedResult}
+
+\subsection{Exercise}\label{exercise-2}
+
+Calculate the \texttt{gross} by adding the \texttt{tax} to \texttt{net}
+amount.
+
+\begin{verbatim}
+  net <- c(108.99, 291.42, 16.28, 62.29, 31.77)
+  tax <- c(22.89, 17.49, 0.98, 13.08, 6.67)
+\end{verbatim}
 
 \section{R Functions and Packages}\label{r-functions-and-packages}
 
@@ -735,9 +760,9 @@ you import, manipulate, explore, visualise and model data in a
 harmonised and consistent way which helps you to be more productive. We
 will use the \texttt{tidyverse} to visualise and summarise data.
 
-\subsection{\texorpdfstring{To continue please install the
-\texttt{tidyverse}
-package}{To continue please install the tidyverse package}}\label{to-continue-please-install-the-tidyverse-package}
+\subsection{\texorpdfstring{MUST DO: Ensure that the \texttt{tidyverse}
+package is
+installed}{MUST DO: Ensure that the tidyverse package is installed}}\label{must-do-ensure-that-the-tidyverse-package-is-installed}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -915,7 +940,7 @@ Both of these show that the dataset has 578 observations and 4 variables
 as we would expect and as compared to the original data file
 \texttt{ChicWeight.csv}. So a good start.
 
-\subsection{Exercise}\label{exercise-2}
+\subsection{Exercise}\label{exercise-3}
 
 It is important to look at the last observations of the dataset as it
 could reveal potential data issues. Use the \texttt{tail()} function to
@@ -929,9 +954,9 @@ Visualisation}\label{chick-weight-data-visualisation}
 Package}{ggplot2 Package}}\label{ggplot2-package}
 
 To visualise the chick weight data, we will use the \texttt{ggplot2}
-package (included in the tidyverse). Our interest is in seeing how the
-\emph{weight changes over time for the chicks by diet}. For the moment
-don't worry too much about the details just try to build your own
+package (part of the \texttt{tidyverse}). Our interest is in seeing how
+the \emph{weight changes over time for the chicks by diet}. For the
+moment don't worry too much about the details just try to build your own
 understanding and logic. To learn more try different things even if you
 get an error messages.
 
@@ -950,7 +975,7 @@ Let's plot the weight data (vertical axis) over time (horizontal axis).
 
 \begin{center}\includegraphics{Getting-Started-in-R_files/figure-latex/emptyPlot-1} \includegraphics{Getting-Started-in-R_files/figure-latex/emptyPlot-2} \end{center}
 
-\subsection{Exercise}\label{exercise-3}
+\subsection{Exercise}\label{exercise-4}
 
 Switch the variables \texttt{Time} and \texttt{weight} in code used for
 the plot on the right? What do you think of this new plot compared to
@@ -975,8 +1000,8 @@ different colour for each diet.
 \subsection{Interpretation}\label{interpretation-1}
 
 It is difficult to conclude anything from this graph as the points are
-printed on top of each other with diet 1 at the bottom and diet 4 on
-top.
+printed on top of one another (with diet 1 underneath and diet 4 at the
+top).
 
 \subsection{Factor Variables}\label{factor-variables}
 
@@ -1023,18 +1048,19 @@ To plot each diet separately in a grid using \texttt{facet\_wrap()}:
 
 \begin{center}\includegraphics{Getting-Started-in-R_files/figure-latex/jitterPlot-1} \end{center}
 
-\subsection{Exercise}\label{exercise-4}
+\subsection{Exercise}\label{exercise-5}
 
 To overcome the issue of ovelapping points we can \textbf{\emph{jitter}}
 the points using \texttt{geom\_jitter()}. Replace the
-\texttt{geom\_point()} above with \texttt{geom\_jitter()}.
+\texttt{geom\_point()} above with \texttt{geom\_jitter()}. What do you
+observe?
 
 \subsection{Interpretation}\label{interpretation-2}
 
 Diet 4 has the least variability but we can't really say anything about
-the mean effect of each diet.
+the mean effect of each diet although diet 3 seems to have the highest.
 
-\subsection{Exercise}\label{exercise-5}
+\subsection{Exercise}\label{exercise-6}
 
 For the \texttt{legend.position} try using ``top'', ``left'' and
 ``none''. Do we really need a legend for this plot?
@@ -1056,17 +1082,16 @@ Next we will plot the mean changes over time for each diet using the
 
 \subsection{Interpretation}\label{interpretation-3}
 
-This plot is easier to interpret then the previous plots. It shows that
-diet 3 group of chicks has the highest mean weight gains by the end of
-the experiment. However we don't see the variation (uncertainty) in the
-data.
+We can see that diet 3 has the highest mean weight gains by the end of
+the experiment but we don't have any information about the variation
+(uncertainty) in the data.
 
-\subsection{Exercise}\label{exercise-6}
+\subsection{Exercise}\label{exercise-7}
 
 What happens when you add \texttt{geom\_point()} to the plot above?
 Don't forget the \texttt{+}. Does it make a difference if you put it
-before the \texttt{stat\_summary(...)} line? Hint: Look very carefully
-at how the graph is plotted.
+before or after the \texttt{stat\_summary(...)} line? Hint: Look very
+carefully at how the graph is plotted.
 
 \subsection{Box-whisker plot}\label{box-whisker-plot}
 
@@ -1089,11 +1114,10 @@ plot.
 
 \subsection{Interpretation}\label{interpretation-4}
 
-Looking at the graphs above we can say that diet 3 seems to have the
-most ``average'' weight gain but it has more variation than diet 4. We
-will have to look at the summary statistics to confirm this.
+Diet 3 seems to have the highest ``average'' weight gain but it has more
+variation than diet 4 which is consistent with our findings so far.
 
-\subsection{Exercise}\label{exercise-7}
+\subsection{Exercise}\label{exercise-8}
 
 Add the following information to the the above plot:
 
@@ -1311,7 +1335,7 @@ Changes the order of the observations (rows).
 \end{verbatim}
 \end{ShadedResult}
 
-\subsection{Exercise}\label{exercise-8}
+\subsection{Exercise}\label{exercise-9}
 
 What does the \texttt{desc()} do? Try using \texttt{desc(Time)}.
 
@@ -1387,9 +1411,11 @@ and passing it to the next.
 \section{Chick Weight: Summary
 Statistics}\label{chick-weight-summary-statistics}
 
-Having done some data visualisations we will quantify the effects of the
-diets using summmary statistics. First we will look at the number of
-observations and the mean by diet and time.
+From the data visualisations above we concluded that the diet 3 has the
+highest mean and diet 4 the least variation. In this section, we will
+quantify the effects of the diets using summmary statistics. We start by
+looking at the number of observations and the mean by \textbf{diet} and
+\textbf{time}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1414,12 +1440,17 @@ observations and the mean by diet and time.
 \end{verbatim}
 \end{ShadedResult}
 
+\subsection{\texorpdfstring{\texttt{group\_by()}
+function}{group\_by() function}}\label{group_by-function}
+
 For each distinct combination of \texttt{Diet} and \texttt{Time}, the
 chick weight data is summarised into the number of observations
 (\texttt{N}) and the mean (\texttt{Mean}) of \texttt{weight}.
 
+\subsection{Other summaries}\label{other-summaries}
+
 Let's also calculate the standard deviation, median, minimum and maximum
-values but only at days 0 (zero) and 21.
+values but only at days 0 and 21.
 
 \begin{Shaded}
 \begin{Highlighting}[]
