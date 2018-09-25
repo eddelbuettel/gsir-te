@@ -13,4 +13,5 @@ Contributors
 - [Hugo Ferreira](https://twitter.com/hu_daa)
 
 ## List of Contributors
+- ...
 
