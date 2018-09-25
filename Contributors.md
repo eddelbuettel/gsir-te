@@ -7,6 +7,7 @@ Contributors
 ## Reviewers
 - Cecile Dubois
 - Christoph Gross
+- Inês Leitão 
 - [Isabel Lafaia](https://github.com/IsabelLafaia)
 - [Hugo Ferreira](https://twitter.com/hu_daa)
 
