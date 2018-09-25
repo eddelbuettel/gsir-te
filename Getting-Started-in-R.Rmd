@@ -115,10 +115,10 @@ without any other data loaded (otherwise you could lose it).
 
 Make sure that:
 
-1. R and RStudio are installed
-2. Guide files are downloaded from: [https://ilustat.com/resources/](https://ilustat.com/resources/) **[UPDATE]**
-3. Double click on the file `"GettingStartedinR.Rproj"` which will open RStudio automatically 
-with the right set up to work through this guide.
+1. R and RStudio are installed.
+2. [http://ilustat.com/shared/Getting-Started-in-R.zip](http://ilustat.com/shared/Getting-Started-in-R.zip) has 
+been downloaded and unzipped
+3. Double click `"Getting-Started-in-R.Rproj"` to open RStudio with the setup for this guide. 
 
 ## Starting R & RStudio
 
@@ -126,7 +126,6 @@ R starts automatically when you open RStudio (see Figure \ref{fig:rstudio}). The
 starts with information about the version number, license and contributors. 
 The last line is a standard prompt "`>`" that indicates R is ready and expecting
 instructions to do something.
-
 ```{r RStudioScreenshot, out.width="3.4in", fig.show='hold', fig.cap="\\label{fig:rstudio}RStudio Screenshot with Console on the left and  Help tab in the bottom right", echo=FALSE}
 include_graphics("RStudio-Screenshot.png")
 ```
@@ -186,11 +185,7 @@ It is good to investigate the different options.
 
 ## Exercise
 
-Try the following:
-
-* `help(median)`
-* `?sd` 
-* `help(unique)`
+Try the following: i) `help(median)`, ii) `?sd` & iii) `?max`
 
 # Some R Concepts
 

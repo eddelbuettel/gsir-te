@@ -26,3 +26,11 @@ examples and a real life dataset.
 * After reading the guide, following the examples and doing exercises you will 
 learn how to manipulate, visualise and summarise data.
 * Hopefully you will have the curiousity to learn more :)
+
+**How?**
+
+1. Downloaded (http://ilustat.com/shared/Getting-Started-in-R.zip).
+2. Unzip this file.
+3. Open the "Getting-Started-in-R.pdf" to get started.
+
+Enjoy :)
