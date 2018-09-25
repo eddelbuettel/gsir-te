@@ -35,4 +35,4 @@ learn how to manipulate, visualise and summarise data.
 4. Enjoy :)
 
 
-**A bit thanks to the [reviewers and contributors](https://github.com/saghirb/Getting-Started-in-R/blob/master/Contributors.md)**
+**A big thank you to the [reviewers and contributors](https://github.com/saghirb/Getting-Started-in-R/blob/master/Contributors.md)**.
