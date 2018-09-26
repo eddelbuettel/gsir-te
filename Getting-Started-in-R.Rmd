@@ -185,7 +185,11 @@ It is good to investigate the different options.
 
 ## Exercise
 
-Try the following: i) `help(median)`, ii) `?sd` & iii) `?max`
+Try the following: 
+
+1. `help(median)`, 
+2. `?sd`
+3. `?max`
 
 # Some R Concepts
 
@@ -609,7 +613,7 @@ very carefully at how the graph is plotted.
 ## Box-whisker plot
 
 To see variation between the different diets we use `geom_boxplot` to plot a box-whisker plot. 
-A note caution is that the number of chicks per diet is relatively low to produce this plot.
+A note of caution is that the number of chicks per diet is relatively low to produce this plot.
 ```{r boxPlot}
 ggplot(CW, aes(Time, weight, colour=Diet)) +
   facet_wrap(~Diet) +
