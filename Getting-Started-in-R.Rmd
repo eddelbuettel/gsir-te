@@ -82,7 +82,6 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE) #, knitr.table.format = 'latex')
-# library(knitr)
 library(tidyverse)
 library(knitr)
 library(kableExtra)
@@ -865,10 +864,8 @@ options(tibble.print_min=10, tibble.print_max=20)
 [^baseR]: R project: [https://www.r-project.org/](https://www.r-project.org/)
 [^tidyverse]: Tidyverse: [https://www.tidyverse.org/](https://www.tidyverse.org/)
 [^rstudio]: RStudio IDE: [https://www.rstudio.com/products/RStudio/](https://www.rstudio.com/products/RStudio/)
-[^ideNote]: You could use R directly or another IDE like Architect:  [https://www.getarchitect.io/](https://www.getarchitect.io/)
-[^stringr]: This works for text too but you would be better advised to use the tidyverse `stringr` package.
-[^rcore]: [https://www.r-project.org/contributors.html](https://www.r-project.org/contributors.html)
 [^setwd]: Use `getwd()` to see the current working directory and `setwd("/to/data/path/data.csv")` to change it (important to use `/` even for Microsoft Windows).
+[^Rdatasets]: Type `data()` in the R console to see a list of the datasets.
 [^kable]: Using the `kable()` function from the `knitr` package with functions from the `kableExtra` package.
 [^CWfup]: I contacted the source authors and kindly received the following reply *"They were mainly undergraduate projects, final-year, rather than theses, so, unfortunately, it's unlikely that any record remains, particularly after so many years."*
-[^Rdatasets]: Type `data()` in the R console to see a list of the datasets.
+
