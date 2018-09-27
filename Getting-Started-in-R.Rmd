@@ -340,7 +340,7 @@ round(sqrt(x1*2.6), 2)
 ## Missing Values
 
 Missing values are coded as `NA` in R. For example,
-```{r}
+```{r MissingValues}
 x2 <- c(3, -7, NA, 5, 1, 1) 
 x2
 x3 <- c("Rat", NA, "Mouse", "Hamster")
@@ -783,7 +783,7 @@ into the number of observations (`N`) and the mean (`Mean`) of `weight`.
 
 Let's also calculate the standard deviation, median, minimum and maximum values but only
 at days 0 and 21.
-```{r}
+```{r sumCW}
 sumCW <-  CW %>% 
   filter(Time %in% c(0, 21)) %>% 
   group_by(Diet, Time) %>% 
@@ -852,13 +852,10 @@ or ask questions. Most importantly have fun.
 
 
 
-
 ```{r tblprintdef, echo = FALSE}
 # Resetting the print limit back to the defaults
 options(tibble.print_min=10, tibble.print_max=20)
 ```
-
-
 
 
 [^baseR]: R project: [https://www.r-project.org/](https://www.r-project.org/)
