@@ -85,7 +85,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
                       eval = TRUE,
-                      cache = FALSE,
+                      cache = TRUE,
                       fig.pos = 'H') #, knitr.table.format = 'latex')
 library(data.table)
 library(ggplot2)
@@ -616,7 +616,7 @@ will explain the `:=` assignment.
 <!-- ``` -->
 
 ```{r cwfactor}
-cw[, DietF := factor(Diet)]  # update by reference
+cw[, Diet := factor(Diet)]  # update by reference
 cw[, Time := factor(Time)]
 summary(cw) # notice the difference ?
 ```
@@ -630,7 +630,7 @@ To plot each diet separately in a grid using `facet_wrap()`:
 
 ```{r jitterPlot}
 # Adding jitter to the points
-ggplot(cw, aes(Time, weight, colour=DietF)) +
+ggplot(cw, aes(Time, weight, colour=Diet)) +
   geom_point() +
   facet_wrap(~ Diet) +
   theme(legend.position = "bottom")
@@ -657,7 +657,7 @@ Next we will plot the mean changes over time for each diet using the `stat_summa
 function:
 ```{r meanlinesPlot, fig.height=2.0}
 ggplot(cw, aes(Time, weight, 
-               group=Diet, colour=DietF)) +
+               group=Diet, colour=Diet)) +
   stat_summary(fun.y="mean", geom="line") 
 ```
 
@@ -679,7 +679,7 @@ plot.  A note of caution is that the number of chicks per diet is relatively low
 produce this plot.
 
 ```{r boxPlot}
-ggplot(cw, aes(Time, weight, colour=DietF)) +
+ggplot(cw, aes(Time, weight, colour=Diet)) +
   facet_wrap(~ Diet) +
   geom_boxplot() +
   theme(legend.position = "none") +
@@ -703,7 +703,7 @@ Add the following information to the the above plot:
 Let's finish with a plot that you might include in a publication.
 ```{r finalPlot}
 ggplot(cw, aes(Time, weight, group=Diet, 
-                             colour=DietF)) +
+                             colour=Diet)) +
   facet_wrap(~ Diet) +
   geom_jitter() +
   stat_summary(fun.y="mean", geom="line",
