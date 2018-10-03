@@ -85,7 +85,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
                       eval = TRUE,
-                      cache = TRUE,
+                      cache = FALSE,
                       fig.pos = 'H') #, knitr.table.format = 'latex')
 library(data.table)
 library(ggplot2)
@@ -426,7 +426,7 @@ wrangling as well as input/output, and `ggplot2` for visualization.
 
 <!-- ### `tidyverse` -->
 
-<!-- The `tidyverse` package[^tidyverse] is a collection of packages the lets you import,  -->
+<!-- The `tidyverse` package[ ^ tidyverse ] is a collection of packages the lets you import,  -->
 <!-- manipulate, explore, visualise and model data in a harmonised and consistent way which  -->
 <!-- helps you to be more productive. We will use the `tidyverse` to visualise and summarise  -->
 <!-- data.  -->
@@ -455,7 +455,7 @@ install.packages(c("data.table", "ggplot2"))
 # Chick Weight Data
 
 R comes with many datasets installed[^Rdatasets]. We will use the `ChickWeight` dataset 
-to learn about the tidyverse. The help system gives a basic summary of the experiment from 
+to learn about data manipulation. The help system gives a basic summary of the experiment from 
 which the data was collect:
 
 > *"The body weights of the chicks were measured at birth and every second day thereafter 
@@ -494,10 +494,9 @@ ChickWeight %>%
 #CW <- read_csv("ChickWeight.csv")
 ```
 
-First we will import the data from a file called `ChickWeight.csv` using the `read_csv()` 
-function from the `readr` package (part of the `tidyverse`). The first thing to do, 
-outside of R, is to open the file `ChickWeight.csv` to check what it contains and that 
-it makes sense. Now we can import the data as follows:
+First we will import the data from a file called `ChickWeight.csv` using the `fread()` function from
+the `data.table` package. The first thing to do, outside of R, is to open the file `ChickWeight.csv`
+to check what it contains and that it makes sense. Now we can import the data as follows:
 
 <!-- ```{r readCW, message=FALSE, warning=FALSE} -->
 <!-- CW <- read_csv("ChickWeight.csv") -->
@@ -571,11 +570,10 @@ original data file `ChickWeight.csv`?
 
 ## `ggplot2` Package
 
-To visualise the chick weight data, we will use the `ggplot2` package (part of the
-`tidyverse`). Our interest is in seeing how the *weight changes over time for the chicks by
-diet*. For the moment don't worry too much about the details just try to build your own 
-understanding and logic. To learn more try different things even if you get an error
-messages.
+To visualise the chick weight data, we will use the `ggplot2` package. Our interest is in seeing how
+the *weight changes over time for the chicks by diet*. For the moment don't worry too much about the
+details just try to build your own understanding and logic. To learn more try different things even
+if you get an error messages.
 
 ## First plot
 Let's plot the weight data (vertical axis) over time (horizontal axis).
@@ -1032,7 +1030,6 @@ options(tibble.print_min=10, tibble.print_max=20)
 
 
 [^baseR]: R project: [https://www.r-project.org/](https://www.r-project.org/)
-[^tidyverse]: Tidyverse: [https://www.tidyverse.org/](https://www.tidyverse.org/)
 [^tinyverse]: Tinyverse: [http://www.tinyverse.org/](http://www.tinyverse.org/)
 [^rstudio]: RStudio IDE: [https://www.rstudio.com/products/RStudio/](https://www.rstudio.com/products/RStudio/)
 [^setwd]: Use `getwd()` to see the current working directory and `setwd("/to/data/path/data.csv")` to change it (important to use `/` even for Microsoft Windows).
