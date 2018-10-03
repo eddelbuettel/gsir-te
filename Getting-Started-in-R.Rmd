@@ -594,7 +594,7 @@ The graph above does not differentiate between the diets. Let's use a different 
 each diet.
 ```{r addColourPlot, fig.height=2.0}
 # Adding colour for diet
-ggplot(cw, aes(Time,weight,colour=factor(Diet))) +
+ggplot(cw, aes(Time, weight, colour=factor(Diet))) +
   geom_point() 
 ```
 ## Interpretation
@@ -616,10 +616,9 @@ will explain the `:=` assignment.
 <!-- ``` -->
 
 ```{r cwfactor}
-cw1 <- copy(cw)
-cw1[, Diet := factor(Diet)]  # update by reference
-cw1[, Time := factor(Time)]
-summary(cw1) # notice the difference ?
+cw[, DietF := factor(Diet)]  # update by reference
+cw[, Time := factor(Time)]
+summary(cw) # notice the difference ?
 ```
 
 ## `facet_wrap()` function
@@ -631,9 +630,9 @@ To plot each diet separately in a grid using `facet_wrap()`:
 
 ```{r jitterPlot}
 # Adding jitter to the points
-ggplot(cw1, aes(Time, weight, colour=Diet)) +
+ggplot(cw, aes(Time, weight, colour=DietF)) +
   geom_point() +
-  facet_wrap(~Diet) +
+  facet_wrap(~ Diet) +
   theme(legend.position = "bottom")
 ```
 
@@ -657,8 +656,8 @@ for this plot?
 Next we will plot the mean changes over time for each diet using the `stat_summary()`
 function:
 ```{r meanlinesPlot, fig.height=2.0}
-ggplot(cw1, aes(Time, weight, 
-               group=Diet, colour=Diet)) +
+ggplot(cw, aes(Time, weight, 
+               group=Diet, colour=DietF)) +
   stat_summary(fun.y="mean", geom="line") 
 ```
 
@@ -680,7 +679,7 @@ plot.  A note of caution is that the number of chicks per diet is relatively low
 produce this plot.
 
 ```{r boxPlot}
-ggplot(cw1, aes(Time, weight, colour=Diet)) +
+ggplot(cw, aes(Time, weight, colour=DietF)) +
   facet_wrap(~ Diet) +
   geom_boxplot() +
   theme(legend.position = "none") +
@@ -703,8 +702,8 @@ Add the following information to the the above plot:
 
 Let's finish with a plot that you might include in a publication.
 ```{r finalPlot}
-ggplot(cw1, aes(Time, weight, group=Diet, 
-                             colour=Diet)) +
+ggplot(cw, aes(Time, weight, group=Diet, 
+                             colour=DietF)) +
   facet_wrap(~ Diet) +
   geom_jitter() +
   stat_summary(fun.y="mean", geom="line",
@@ -747,11 +746,10 @@ create factor variables.
 <!-- ``` -->
 
 ```{r dtmutate}
-cw2 <- copy(cw)
 # Added a column
-cw2[, weightKg := weight/1000 ][]
+cw[, weightKg := weight/1000 ][]
 # Modify an existing column
-cw2[, Diet := paste("Diet", Diet) ][]
+cw[, Diet := paste0("Dt", Diet) ][]
 ```
 
 <!-- ## `select()` -->
@@ -767,9 +765,9 @@ Keeps, drops or reorders variables.
 
 ```{r dtselect}
 # Drop the weight variable from CWm1 using minus
-cw2[, -c("weight")]  
+cw[, -c("weight")]  
 # Keep variables Time, Diet and weightKg
-cw2[, .(Chick, Time, Diet, weightKg)]
+cw[, .(Chick, Time, Diet, weightKg)]
 ```
 <!-- ## `rename()` -->
 ## `setnames()` to name or rename
@@ -780,9 +778,9 @@ Renames variables whilst keeping all variables.
 <!-- ``` -->
 
 ```{r dtrename}
-setnames(cw2, c("Diet", "weight"),
+setnames(cw, c("Diet", "weight"),
          c("Group", "Weight"))
-cw2[]
+cw[]
 ```
 
 <!-- ## `filter()` -->
@@ -794,7 +792,7 @@ Keeps or drops observations (rows).
 <!-- ``` -->
 
 ```{r dtfilter}
-cw2[ Time == 21 & Weight > 300, ]
+cw[ Time == 21 & Weight > 300, ]
 ```
 
 For comparing values in vectors use: `<` (less than), `>` (greater than), `<=`
@@ -811,9 +809,9 @@ Changes the order of the observations (rows).
 <!-- ``` -->
 
 ```{r dtarrange}
-cw2[, on=.(weight)] # on the fly
-setkey(cw2, Chick, Time) # keyed
-cw2
+cw[, on=.(Weight)] # on the fly
+setkey(cw, Chick, Time) # keyed
+cw
 ```
 
 ## Exercise
@@ -842,14 +840,16 @@ In reality you will end up doing multiple data wrangling steps that you want to 
 optimal as they have their own issues. This is where the 'chaining' of `data.table` operations comes
 to the rescue:
 
+```{r resetW, echo=FALSE}
+cw[, `:=`(weight=Weight, Diet=Group) ]        
+```
+
 ```{r cwchained}
-cw3 <- copy(cw)
-cw3 <- cw3[ Time %in% c(0,21)][
+cw[ Time %in% c(0,21)][
   , Weight := weight][
   , Group := factor(paste("Diet", Diet))][
   , .(Chick, Group, Time, Weight)][ 
-  , on=.(Chick,Time)]
-head(cw3, 10)
+  , on=.(Chick,Time)][1:5,]
 ```
 
 <!-- ## Read `%>%` as "then" -->
@@ -896,10 +896,8 @@ and the mean of weight grouped by **diet** and **time**.
 <!-- ``` -->
 
 ```{r ctstats}
-cw4 <- copy(cw)
-cwSum <- cw4[ , .(N = .N, Mean = mean(weight)),
-             by=.(Diet, Time)]
-head(cwSum)
+cw[ , .(N = .N, Mean = mean(weight)),
+   by=.(Diet, Time)][1:5,]
 ```
 
 ## `by()` function 
@@ -928,16 +926,15 @@ at days 0 and 21.
 <!-- ``` -->
 
 ```{r dtSum}
-cw4 <- copy(cw)
-cw4 <- cw4[ Time %in% c(0,21)]
-CWS <- cw4[,.(N      = .N, 
-              Mean   = mean(weight),
-              SDev   = sd(weight),
-              Median = median(weight),
-              Min    = min(weight),
-              Max    = max(weight)  ),
-           by=.(Diet, Time)]
-options(digits=4)  ## tighter display here
+CWS <- cw[Time %in% c(0,21),
+          .(N      = .N, 
+            Mean   = mean(weight),
+            SDev   = sd(weight),
+            Median = median(weight),
+            Min    = min(weight),
+            Max    = max(weight)  ),
+          by=.(Diet, Time)]
+options(digits=3)  ## tighter display here
 CWS
 ```
 
