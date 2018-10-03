@@ -1,5 +1,5 @@
 ---
-title: "Getting Started in R"
+title: "Getting Started in Base R"
 
 # Use letters for affiliations
 author:
@@ -34,7 +34,8 @@ keywords:
   - Data Science
 
 # Paper size for document, values of letterpaper and a4paper
-papersize: a4
+#papersize: a4
+papersize: letterpaper
 
 # Font size of the document, values of 9pt (default), 10pt, 11pt and 12pt
 fontsize: 9pt
@@ -436,7 +437,7 @@ install.packages("tidyverse")
 ## Loading packages
 
 To use the `tidyverse` package load it using the `library()` function:
-```{r usePackage}
+```{r usePackage, echo=FALSE, eval=FALSE}
 library(tidyverse)
 ```
 
@@ -474,30 +475,32 @@ Investigate the *effect of diet on the weight over time*.
 
 # Importing The Data
 
-```{r writeCW, echo=FALSE, message=FALSE, warning=FALSE}
+```{r writeCW, echo=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
 ChickWeight %>%
   select(Chick, Diet, Time, weight) %>% 
   arrange(Chick, Diet, Time) %>% 
   write_csv("ChickWeight.csv")
-CW <- read_csv("ChickWeight.csv")
+#CW <- read_csv("ChickWeight.csv")
 ```
 
 First we will import the data from a file called `ChickWeight.csv` using the `read_csv()` 
 function from the `readr` package (part of the `tidyverse`). The first thing to do, 
 outside of R, is to open the file `ChickWeight.csv` to check what it contains and that 
 it makes sense. Now we can import the data as follows:
-```{r readCW, message=FALSE, warning=FALSE}
-CW <- read_csv("ChickWeight.csv")
-```
-All columns (variables) have been read in as numeric values (i.e. `col_double()`) but
-you may see that they are read in a integer (i.e. `col_int()`) due to operating system
-differences.
 
+<!-- ```{r readCW, message=FALSE, warning=FALSE} -->
+<!-- CW <- read_csv("ChickWeight.csv") -->
+<!-- ``` -->
 ```{r cwdt}
 suppressMessages(library(data.table))  # tinyverse
 cw <- fread("ChickWeight.csv")
-cw
 ```
+
+All columns (variables) have been read in as numeric values (i.e. `col_double()`) but
+you may see that they are read in a integer (i.e. `col_int()`) due to operating system
+differences. **FIXME**
+
+
 ## Important Note
 
 If all goes well then the data is now stored in an R object called `CW`. If you get the
@@ -516,18 +519,22 @@ the function `setwd()`[^setwd].
 # Looking at the Dataset
 
 To look at the data type just type the object (dataset) name: 
-```{r printCW}
-CW
+<!-- ```{r printCW} -->
+<!-- CW -->
+<!-- ``` -->
+
+```{r printcw}
+cw
 ```
 
-## `glimpse()` function
+## `glimpse()` function **FIXME**
 
 If there are too many variables then not all them may be printed. To overcome this issue
 we can use the `glimpse()` function which makes it possible to see every column in your
 dataset (called a "data frame" in R speak).
-```{r glimpseCW}
-glimpse(CW)
-```
+<!-- ```{r glimpseCW} -->
+<!-- glimpse(CW) -->
+<!-- ``` -->
 
 Note that `glimpse()` gives the same result on our `data.table` object `cw`.  Alternatively, 
 the base R function `summary()` is very helpful:
@@ -538,7 +545,7 @@ summary(cw)
 
 ## Interpretation
 
-Both of these show that the dataset has `r nrow(CW)` observations and `r ncol(CW)` 
+Both of these show that the dataset has `r nrow(cw)` observations and `r ncol(cw)` 
 variables as we would expect and as compared to the original data file `ChicWeight.csv`. 
 So a good start. 
 
@@ -563,9 +570,9 @@ messages.
 Let's plot the weight data (vertical axis) over time (horizontal axis).
 ```{r emptyPlot, fig.width=1.74, fig.height=1.74, fig.show='hold', fig.align='center'}
 # An empty plot (the plot on the left)
-ggplot(CW, aes(Time, weight))  
+ggplot(cw, aes(Time, weight))  
 # With data (the plot on the right)
-ggplot(CW, aes(Time, weight)) + geom_point() 
+ggplot(cw, aes(Time, weight)) + geom_point() 
 ```
 
 ## Exercise
@@ -578,7 +585,7 @@ The graph above does not differentiate between the diets. Let's use a different 
 each diet.
 ```{r addColourPlot, fig.height=2.0}
 # Adding colour for diet
-ggplot(CW,aes(Time,weight,colour=factor(Diet))) +
+ggplot(cw, aes(Time,weight,colour=factor(Diet))) +
   geom_point() 
 ```
 ## Interpretation
@@ -590,14 +597,14 @@ one another (with diet 1 underneath and diet 4 at the top).
 ## Factor Variables
 
 Before we continue, we have to make an important change to the `CW` dataset by making
-`Diet` and `Time` *factor variables*. This means that R will treat them as categorical 
-variables (see the `<fct>` variables below) instead of continuous variables. It will 
-simplify our coding. The next section will explain the  `mutate()` function.
-```{r makeFactor}
-CW <- mutate(CW, Diet = factor(Diet))
-CW <- mutate(CW, Time = factor(Time))
-glimpse(CW)
-```
+`Diet` and `Time` *factor variables*. This means that R will treat them as categorical
+variables instead of continuous variables. It will simplify our coding. The next section
+will explain the `:=` assignment.
+<!-- ```{r makeFactor} -->
+<!-- CW <- mutate(CW, Diet = factor(Diet)) -->
+<!-- CW <- mutate(CW, Time = factor(Time)) -->
+<!-- glimpse(CW) -->
+<!-- ``` -->
 
 ```{r cwfactor}
 cw1 <- copy(cw)
@@ -608,12 +615,13 @@ summary(cw1) # notice the difference ?
 
 ## `facet_wrap()` function
 To plot each diet separately in a grid using `facet_wrap()`:
+<!-- ggplot(CW, aes(Time, weight, colour=Diet)) + -->
+<!--   geom_point() + -->
+<!--   facet_wrap(~Diet) + -->
+<!--   theme(legend.position = "bottom") -->
+
 ```{r jitterPlot}
 # Adding jitter to the points
-ggplot(CW, aes(Time, weight, colour=Diet)) +
-  geom_point() +
-  facet_wrap(~Diet) +
-  theme(legend.position = "bottom")
 ggplot(cw1, aes(Time, weight, colour=Diet)) +
   geom_point() +
   facet_wrap(~Diet) +
@@ -640,7 +648,7 @@ for this plot?
 Next we will plot the mean changes over time for each diet using the `stat_summary()`
 function:
 ```{r meanlinesPlot, fig.height=2.0}
-ggplot(CW, aes(Time, weight, 
+ggplot(cw1, aes(Time, weight, 
                group=Diet, colour=Diet)) +
   stat_summary(fun.y="mean", geom="line") 
 ```
@@ -658,11 +666,13 @@ very carefully at how the graph is plotted.
 
 ## Box-whisker plot
 
-To see variation between the different diets we use `geom_boxplot` to plot a box-whisker plot. 
-A note of caution is that the number of chicks per diet is relatively low to produce this plot.
+To see variation between the different diets we use `geom_boxplot` to plot a box-whisker
+plot.  A note of caution is that the number of chicks per diet is relatively low to
+produce this plot.
+
 ```{r boxPlot}
-ggplot(CW, aes(Time, weight, colour=Diet)) +
-  facet_wrap(~Diet) +
+ggplot(cw1, aes(Time, weight, colour=Diet)) +
+  facet_wrap(~ Diet) +
   geom_boxplot() +
   theme(legend.position = "none") +
   ggtitle("Chick Weight over Time by Diet")
@@ -684,9 +694,9 @@ Add the following information to the the above plot:
 
 Let's finish with a plot that you might include in a publication.
 ```{r finalPlot}
-ggplot(CW, aes(Time, weight, group=Diet, 
+ggplot(cw1, aes(Time, weight, group=Diet, 
                              colour=Diet)) +
-  facet_wrap(~Diet) +
+  facet_wrap(~ Diet) +
   geom_jitter() +
   stat_summary(fun.y="mean", geom="line",
                colour="black") +
@@ -699,7 +709,8 @@ ggplot(CW, aes(Time, weight, group=Diet,
 
 
 
-# Tidyverse: Data Wrangling Basics
+<!-- # Tidyverse: Data Wrangling Basics -->
+# `data.table` Data Wrangling Basics
 
 ```{r resettblprint, echo = FALSE}
 # Temporarily resetting the print limit
@@ -707,61 +718,71 @@ options(tibble.print_min=3, tibble.print_max=3)
 options(datatable.print.topn=2)
 ```
 
-In this section we will learn how to wrangle (manipulate) datasets using the `tidyverse`
-package. Let's start with the `mutate()`, `select()`, `rename()`, `filter()` and `arrange()` 
-functions.
+In this section we will learn how to wrangle (manipulate) datasets using the `data.table`
+package. **FIXME** Let's start with the `mutate()`, `select()`, `rename()`, `filter()` and
+`arrange()` functions.
 
-## `mutate()`
+<!-- ## `mutate()` -->
+## `j` to select (or transform) columns
 
-Adds a new variable (column) or modifies an existing one. We already used this above to create
-factor variables.
-```{r mutateDemo}
-# Added a column
-CWm1 <- mutate(CW, weightKg = weight/1000)
-CWm1
-# Modify an existing column
-CWm2 <- mutate(CW, Diet = str_c("Diet ", Diet))
-CWm2
-```
+Adds a new variable (column) or modifies an existing one. We already used this above to
+create factor variables.
+
+<!-- ```{r mutateDemo} -->
+<!-- # Added a column -->
+<!-- CWm1 <- mutate(CW, weightKg = weight/1000) -->
+<!-- CWm1 -->
+<!-- # Modify an existing column -->
+<!-- CWm2 <- mutate(CW, Diet = str_c("Diet ", Diet)) -->
+<!-- CWm2 -->
+<!-- ``` -->
 
 ```{r dtmutate}
 cw2 <- copy(cw)
-cw2[, weightKg := weight/1000 ]
-cw2[, Diet := paste("Diet", Diet) ]
+# Added a column
+cw2[, weightKg := weight/1000 ][]
+# Modify an existing column
+cw2[, Diet := paste("Diet", Diet) ][]
 ```
 
-## `select()`
+<!-- ## `select()` -->
+## `j` to select (or transform) columns
 
 Keeps, drops or reorders variables.
-```{r selectDemo}
-# Drop the weight variable from CWm1 using minus
-select(CWm1, -weight)
-# Keep variables Time, Diet and weightKg
-select(CWm1, Chick, Time, Diet, weightKg)
-```
+<!-- ```{r selectDemo} -->
+<!-- # Drop the weight variable from CWm1 using minus -->
+<!-- select(CWm1, -weight) -->
+<!-- # Keep variables Time, Diet and weightKg -->
+<!-- select(CWm1, Chick, Time, Diet, weightKg) -->
+<!-- ``` -->
 
 ```{r dtselect}
-cw2[, -c("weight")]  # exclude weight
+# Drop the weight variable from CWm1 using minus
+cw2[, -c("weight")]  
+# Keep variables Time, Diet and weightKg
 cw2[, .(Chick, Time, Diet, weightKg)]
 ```
-## `rename()`
+<!-- ## `rename()` -->
+## `setnames()` to name or rename
 
 Renames variables whilst keeping all variables.
-```{r renameDemo}
-rename(CW, Group = Diet, Weight = weight)
-```
+<!-- ```{r renameDemo} -->
+<!-- rename(CW, Group = Diet, Weight = weight) -->
+<!-- ``` -->
 
 ```{r dtrename}
-setnames(cw2, c("Diet", "weight"), c("Group", "Weight"))
+setnames(cw2, c("Diet", "weight"),
+         c("Group", "Weight"))
 cw2[]
 ```
 
-## `filter()`
+<!-- ## `filter()` -->
+## `i` operator
 
 Keeps or drops observations (rows).
-```{r filterDemo}
-filter(CW, Time==21 & weight>300)
-```
+<!-- ```{r filterDemo, eval=FALSE} -->
+<!-- filter(CW, Time==21 & weight>300) -->
+<!-- ``` -->
 
 ```{r dtfilter}
 cw2[ Time == 21 & Weight > 300, ]
@@ -771,13 +792,14 @@ For comparing values in vectors use: `<` (less than), `>` (greater than), `<=`
 (less than and equal to), `>=` (greater than and equal to), `==` (equal to) and `!=`
 (not equal to). These can be combined logically using `&` (and) and `|` (or).
 
-## `arrange()`
+<!-- ## `arrange()` -->
+## Keying observations 
 
 Changes the order of the observations (rows).
-```{r arrangeDemo}
-arrange(CW, Chick, Time)
-arrange(CW, desc(weight))
-```
+<!-- ```{r arrangeDemo} -->
+<!-- arrange(CW, Chick, Time) -->
+<!-- arrange(CW, desc(weight)) -->
+<!-- ``` -->
 
 ```{r dtarrange}
 cw2[, on=.(weight)] # on the fly
@@ -787,57 +809,67 @@ cw2
 
 ## Exercise
 
-What does the `desc()` do? Try using `desc(Time)`.
+What does the `desc()` do? Try using `desc(Time)`.  **FIXME**
 
-# Tidyverse: Pipe operator ` %>%`
+<!-- # Tidyverse: Pipe operator ` %>%` -->
+
+<!-- In reality you will end up doing multiple data wrangling steps that you want to save. -->
+<!-- Neither are optimal as they have their own issues. This is where the pipe operator,  -->
+<!-- `%>%` comes to the rescue: -->
+
+<!-- ```{r pipeOpDemo, eval=FALSE} -->
+<!-- CW21 <- CW %>%  -->
+<!--   filter(Time %in% c(0, 21)) %>%  -->
+<!--   rename(Weight = weight) %>%  -->
+<!--   mutate(Group = factor(str_c("Diet ", Diet))) %>%  -->
+<!--   select(Chick, Group, Time, Weight) %>%  -->
+<!--   arrange(Chick, Time)  -->
+<!-- CW21 -->
+<!-- ``` -->
+
+# Chaining 
 
 In reality you will end up doing multiple data wrangling steps that you want to save.
-Neither are optimal as they have their own issues. This is where the pipe operator, 
+Neither are optimal as they have their own issues. This is where the 'chaining' 
+of `data.table` operations comes to the rescule
 `%>%` comes to the rescue:
-```{r pipeOpDemo}
-CW21 <- CW %>% 
-  filter(Time %in% c(0, 21)) %>% 
-  rename(Weight = weight) %>% 
-  mutate(Group = factor(str_c("Diet ", Diet))) %>% 
-  select(Chick, Group, Time, Weight) %>% 
-  arrange(Chick, Time) 
-CW21
-```
 
 ```{r cwchained}
 cw3 <- copy(cw)
-cw3 <- cw3[ Time %between% c(0,21)]
-cw3[, Weight := weight]
-cw3[, Group := factor(paste("Diet", Diet))]
-cw3[, .(Chick, Group, Time, Weight)][,on=.(Chick,Time)]
+cw3 <- cw3[ Time %in% c(0,21)][
+  , Weight := weight][
+  , Group := factor(paste("Diet", Diet))][
+  , .(Chick, Group, Time, Weight)][ 
+  , on=.(Chick,Time)]
+head(cw3, 10)
 ```
 
-## Read `%>%` as "then"
+<!-- ## Read `%>%` as "then" -->
 
-To understand the code above we should read the pipe operator ` %>%` as "then".
+<!-- To understand the code above we should read the pipe operator ` %>%` as "then". -->
 
-> Create a new dataset (object) called `CW21` using dataset `CW` ***then***
-keep the data for days 0 and 21 ***then*** rename variable `weight` to `Weight`
-***then*** create a variable called `Group` ***then*** keep variables `Chick`, 
-`Group`, `Time` and `Weight` and ***then*** finally arrange the data by 
-variables `Chick` and `Time`.
+<!-- > Create a new dataset (object) called `CW21` using dataset `CW` ***then*** -->
+<!-- keep the data for days 0 and 21 ***then*** rename variable `weight` to `Weight` -->
+<!-- ***then*** create a variable called `Group` ***then*** keep variables `Chick`,  -->
+<!-- `Group`, `Time` and `Weight` and ***then*** finally arrange the data by  -->
+<!-- variables `Chick` and `Time`. -->
 
-## In practice
+<!-- ## In practice -->
 
-```{r pipeOpExplain, echo=TRUE, eval=FALSE}
-CW21 <- CW %>% 
-  filter(., Time %in% c(0, 21)) %>% 
-  rename(., Weight = weight) %>% 
-  mutate(., Group=factor(str_c("Diet ",Diet))) %>% 
-  select(., Chick, Group, Time, Weight) %>% 
-  arrange(., Chick, Time) 
-```
+<!-- ```{r pipeOpExplain, echo=TRUE, eval=FALSE} -->
+<!-- CW21 <- CW %>%  -->
+<!--   filter(., Time %in% c(0, 21)) %>%  -->
+<!--   rename(., Weight = weight) %>%  -->
+<!--   mutate(., Group=factor(str_c("Diet ",Diet))) %>%  -->
+<!--   select(., Chick, Group, Time, Weight) %>%  -->
+<!--   arrange(., Chick, Time)  -->
+<!-- ``` -->
 
-The pipe operator, `%>%`, replaces the dots (`.`) with whatever is returned from code
-preceding it. For example, the dot in `filter(., Time %in% c(0, 21))` is replaced by
-`CW`. The output of the `filter(...)` then replaces the dot in 
-`rename(., Weight = weight)` and so on. Think of it as a data assembly line with 
-each function doing its thing and passing it to the next.
+<!-- The pipe operator, `%>%`, replaces the dots (`.`) with whatever is returned from code -->
+<!-- preceding it. For example, the dot in `filter(., Time %in% c(0, 21))` is replaced by -->
+<!-- `CW`. The output of the `filter(...)` then replaces the dot in  -->
+<!-- `rename(., Weight = weight)` and so on. Think of it as a data assembly line with  -->
+<!-- each function doing its thing and passing it to the next. -->
 
 
 
@@ -846,93 +878,104 @@ each function doing its thing and passing it to the next.
 From the data visualisations above we concluded that the diet 3 has the highest mean 
 and diet 4 the least variation. In this section, we will quantify the effects of the 
 diets using summmary statistics. We start by looking at the number of observations 
-and the mean by **diet** and **time**.
-```{r mnsdStatCW}
-mnsdCW <- CW %>% 
-  group_by(Diet, Time) %>% 
-  summarise(N = n(), Mean = mean(weight)) %>% 
-  arrange(Diet, Time)
-mnsdCW
-```
+and the mean of weight grouped by **diet** and **time**.
+<!-- ```{r mnsdStatCW} -->
+<!-- mnsdCW <- CW %>%  -->
+<!--   group_by(Diet, Time) %>%  -->
+<!--   summarise(N = n(), Mean = mean(weight)) %>%  -->
+<!--   arrange(Diet, Time) -->
+<!-- mnsdCW -->
+<!-- ``` -->
 
 ```{r ctstats}
 cw4 <- copy(cw)
-cwSum <- cw4[ , .(N = .N, Mean = mean(weight)), by=.(Diet, Time)]
+cwSum <- cw4[ , .(N = .N, Mean = mean(weight)),
+             by=.(Diet, Time)]
 head(cwSum)
 ```
 
-## `group_by()` function 
+## `by()` function 
 
-For each distinct combination of `Diet` and `Time`, the chick weight data is summarised 
-into the number of observations (`N`) and the mean (`Mean`) of `weight`.
+For each distinct combination of `Diet` and `Time`, the chick weight data is summarised
+into the number of observations (`N`, using the internal variable `.N` denoting current
+group size) and the mean (`Mean`) of `weight`.
 
 ## Other summaries
 
 Let's also calculate the standard deviation, median, minimum and maximum values but only
 at days 0 and 21.
-```{r sumCW}
-sumCW <-  CW %>% 
-  filter(Time %in% c(0, 21)) %>% 
-  group_by(Diet, Time) %>% 
-  summarise(N = n(),
-            Mean = mean(weight),
-            SD = sd(weight),
-            Median = median(weight),
-            Min = min(weight),
-            Max = max(weight)) %>% 
-  arrange(Diet, Time)
-sumCW
-```
+
+<!-- ```{r sumCW, eval=FALSE} -->
+<!-- sumCW <-  CW %>%  -->
+<!--   filter(Time %in% c(0, 21)) %>%  -->
+<!--   group_by(Diet, Time) %>%  -->
+<!--   summarise(N = n(), -->
+<!--             Mean = mean(weight), -->
+<!--             SD = sd(weight), -->
+<!--             Median = median(weight), -->
+<!--             Min = min(weight), -->
+<!--             Max = max(weight)) %>%  -->
+<!--   arrange(Diet, Time) -->
+<!-- sumCW -->
+<!-- ``` -->
 
 ```{r dtSum}
 cw4 <- copy(cw)
-cw4 <- cw4[ Time %between% c(0,21)]
-cwSum <- cw4[,.(N      = .N, 
-                Mean   = mean(weight),
-                SDev   = sd(weight),
-                Median = median(weight),
-                Min    = min(weight),
-                Max    = max(weight)  ),
-              by=.(Diet, Time)]
-head(cwSum)
+cw4 <- cw4[ Time %in% c(0,21)]
+CWS <- cw4[,.(N      = .N, 
+              Mean   = mean(weight),
+              SDev   = sd(weight),
+              Median = median(weight),
+              Min    = min(weight),
+              Max    = max(weight)  ),
+           by=.(Diet, Time)]
+options(digits=4)  ## tighter display here
+CWS
 ```
 
 
-Let's make the summaries "prettier", say, for a report or publication.
-```{r prettySum}
-prettySumCW <- sumCW %>% 
- mutate(Mean_SD = str_c(format(Mean, digits=1),
-           " (", format(SD, digits=2), ")")) %>% 
- mutate(Range = str_c(Min, " - ", Max)) %>% 
- select(Diet, Time, N, Mean_SD, Median, Range) %>%
- arrange(Diet, Time)
-prettySumCW
-```
+Let's make the summaries "prettier" for a report or publication.
+
+<!-- ```{r prettySum, eval=FALSE} -->
+<!-- prettySumCW <- sumCW %>%  -->
+<!--  mutate(Mean_SD = str_c(format(Mean, digits=1), -->
+<!--            " (", format(SD, digits=2), ")")) %>%  -->
+<!--  mutate(Range = str_c(Min, " - ", Max)) %>%  -->
+<!--  select(Diet, Time, N, Mean_SD, Median, Range) %>% -->
+<!--  arrange(Diet, Time) -->
+<!-- prettySumCW -->
+<!-- ``` -->
 
 ```{r dtpretty}
-cwSum[, Mean_SD := paste0(format(Mean, digits=1), " (", format(SDev, digits=2), ")")]
-cwSum[, Range := paste(Min, "-", Max)]
-prettyCWSum <- cwSum[, .(Diet, Time, N, Mean_SD, Median, Range), on=.(Diet, Time)]
-head(prettyCWSum, 10)
+CWS[, Mean_SD := paste0(format(Mean,digits=1)," (",
+                        format(SDev,digits=2),
+                        ")")]
+CWS[, Range := paste(Min, "-", Max)]
+prettyCWSum <- CWS[, .(Diet, Time, N, Mean_SD,
+                       Median, Range),
+                   on=.(Diet, Time)]
+prettyCWSum
 ```
 
 ## Final Table
-Eventually you should be able to produce[^kable] a publication ready version as follows:
-```{r prettyKable, echo = FALSE}
-prettySumCW %>% 
-kable("latex", booktabs = TRUE, linesep = "", align = "cccrc") %>% 
-  kable_styling(position = "center") %>% 
-  row_spec(0, bold = TRUE) %>%
-  row_spec(c(2, 4, 6, 8), background = "lightgray")
-  # Uncomment below once bugs are fixed - https://github.com/haozhu233/kableExtra/issues/243 & 237
-  # column_spec(1, bold = T) %>%
-  # collapse_rows(columns = 1, latex_hline = "none", valign = "top")
-```
 
-And another
+Eventually you should be able to produce[^kable] a publication-ready version such as the following table (whose code we are hiding here for compactness, full details are of course in the sources):
+
+<!-- ` ` `{r prettyKable, echo = FALSE} -->
+<!-- prettySumCW %>%  -->
+<!-- kable("latex", booktabs = TRUE, linesep = "", align = "cccrc") %>%  -->
+<!--   kable_styling(position = "center") %>%  -->
+<!--   row_spec(0, bold = TRUE) %>% -->
+<!--   row_spec(c(2, 4, 6, 8), background = "lightgray") -->
+<!--   # Uncomment below once bugs are fixed - https://github.com/haozhu233/kableExtra/issues/243 & 237 -->
+<!--   # column_spec(1, bold = T) %>% -->
+<!--   # collapse_rows(columns = 1, latex_hline = "none", valign = "top") -->
+<!-- ` ` ` -->
+
 
 ```{r dtprettyKable, echo = FALSE}
-tbl <- kable(prettyCWSum[Time %in% c(0,21), ], "latex", booktabs = TRUE, linesep = "", align = "cccrc") 
+tbl <- kable(prettyCWSum[Time %in% c(0,21), ], "latex",
+             booktabs = TRUE, linesep = "", align = "cccrc") 
 tbl <- kable_styling(tbl, position = "center")
 tbl <- row_spec(tbl, 0, bold = TRUE) 
 #tbl <- row_spec(tbl, c(2, 4, 6, 8), background = "lightgray")
