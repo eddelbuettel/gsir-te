@@ -72,7 +72,7 @@ output:
   pinp::pinp:
     fig_caption: yes
     collapse: true
-    keep_tex: yes
+    keep_tex: false
 
 # Required: Vignette metadata for inclusion in a package.
 # vignette: >
@@ -85,8 +85,9 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
                       eval = TRUE,
-                      cache = FALSE,
+                      cache = TRUE,
                       fig.pos = 'H') #, knitr.table.format = 'latex')
+library(data.table)
 library(ggplot2)
 library(knitr)
 library(kableExtra)
@@ -285,10 +286,10 @@ round(8.6178, 2)
 
 What do the following pairs of examples do?
 
-1. "`ceiling(18.33)`" and "`signif(9488, 2)`"
-2. "`exp(1)`" and "`log10(1000)`"
-3. "`sign(-2.9)`" and "`sign(32)`" 
-4. "`abs(-27.9)`" and "`abs(11.9)`"
+1. `ceiling(18.33)` and `signif(9488, 2)`
+2. `exp(1)` and `log10(1000)`
+3. `sign(-2.9)` and `sign(32)` 
+4. `abs(-27.9)` and `abs(11.9)`
 
 # Some More R Concepts
 
@@ -357,7 +358,7 @@ Use function `ls()` to list the objects in your workspace. The `rm()` function r
 (delete) them.
 ```{r lsrm}
 ls()
-rm(x, x1, x2, x3, xm, r1, s1, AGE, age)
+rm(x, x1, x2, x3, xm, r1, s1, AgE, age)
 ls()
 ```
 
@@ -416,30 +417,40 @@ graph. Experience, as well as both empirical and theorectical software engineeri
 have demonstrated that failure increases with complexity. 
 
 So choosing when to rely on additional packages has to balance the increased functionality a package
-brings with both its history of development, and development model.  By adding another package, we open
-a door to interface changes we no longer control.  It is clearly valuable at times, yet one has to remain
-aware of the costs that may accrue as a consequence.
+brings with both its history of development, its development model, maintenance status and history
+of both changes and fixes. This _is_ complex, and there are no easy answers.  By adding another
+package, we open a door to interface changes we no longer control.  It is clearly valuable at times,
+yet one has to remain aware of the costs that may accrue as a consequence. So this document takes
+the few that _fewer is better_, and will rely on only two additional packages: `data.table` for data
+wrangling as well as input/output, and `ggplot2` for visualization.
 
-### `tidyverse`
+<!-- ### `tidyverse` -->
 
-The `tidyverse` package[^tidyverse] is a collection of packages the lets you import, 
-manipulate, explore, visualise and model data in a harmonised and consistent way which 
-helps you to be more productive. We will use the `tidyverse` to visualise and summarise 
-data. 
+<!-- The `tidyverse` package[^tidyverse] is a collection of packages the lets you import,  -->
+<!-- manipulate, explore, visualise and model data in a harmonised and consistent way which  -->
+<!-- helps you to be more productive. We will use the `tidyverse` to visualise and summarise  -->
+<!-- data.  -->
 
 
-*MUST DO: Ensure that the `tidyverse` package is installed*
+<!-- *MUST DO: Ensure that the `tidyverse` package is installed* -->
 
-```{r installTidyverse, echo=TRUE, eval=FALSE}
-install.packages("tidyverse")
+<!-- ```{r installTidyverse, echo=TRUE, eval=FALSE} -->
+<!-- install.packages("tidyverse") -->
+<!-- ``` -->
+
+## Installation 
+
+If needed, install these two packages via
+```{r installation, eval=FALSE}
+install.packages(c("data.table", "ggplot2"))
 ```
 
-## Loading packages
+<!-- ## Loading packages -->
 
-To use the `tidyverse` package load it using the `library()` function:
-```{r usePackage, echo=FALSE, eval=FALSE}
-library(tidyverse)
-```
+<!-- To use the `tidyverse` package load it using the `library()` function: -->
+<!-- ```{r usePackage, echo=FALSE, eval=FALSE} -->
+<!-- library(tidyverse) -->
+<!-- ``` -->
 
 # Chick Weight Data
 
@@ -829,10 +840,9 @@ What does the `desc()` do? Try using `desc(Time)`.  **FIXME**
 
 # Chaining 
 
-In reality you will end up doing multiple data wrangling steps that you want to save.
-Neither are optimal as they have their own issues. This is where the 'chaining' 
-of `data.table` operations comes to the rescule
-`%>%` comes to the rescue:
+In reality you will end up doing multiple data wrangling steps that you want to save.  Neither are
+optimal as they have their own issues. This is where the 'chaining' of `data.table` operations comes
+to the rescue:
 
 ```{r cwchained}
 cw3 <- copy(cw)
