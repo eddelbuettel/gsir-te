@@ -11,7 +11,7 @@ author:
   
 # For footer text  TODO(fold into template, allow free form two-authors)
 # I will use it to place the copyright notice (Creative Comments Share Alike)
-lead_author_surname: "[CC BY SA](https://creativecommons.org/licenses/by-sa/4.0/) [ilustat](http://ilustat.com/) $\\bullet$ [info@ilustat.com](mailto:info@ilustat.com)"
+lead_author_surname: "[CC BY SA](https://creativecommons.org/licenses/by-sa/4.0/) [ilustat](http://ilustat.com/) $\\bullet$ [info@ilustat.com](mailto:info@ilustat.com) $\\bullet$ [edd@debian.org](mailto:edd@debian.org)"
 
 # Place DOI URL or CRAN Package URL here
 doi: "Learn more at http://ilustat.com/resources/"
@@ -35,7 +35,7 @@ keywords:
 
 # Paper size for document, values of letterpaper and a4paper
 #papersize: a4
-papersize: letterpaper
+papersize: letter
 
 # Font size of the document, values of 9pt (default), 10pt, 11pt and 12pt
 fontsize: 9pt
@@ -73,13 +73,6 @@ output:
     fig_caption: yes
     collapse: true
     keep_tex: false
-
-# Required: Vignette metadata for inclusion in a package.
-# vignette: >
-#  %\VignetteIndexEntry{YourPackage-vignetteentry}
-#  %\VignetteKeywords{YourPackage, r, anotherkeyword}
-#  %\VignettePackage{YourPackage}
-#  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r setup, include=FALSE}
@@ -103,7 +96,10 @@ update_geom_defaults("boxplot", list(outlier.size = 0.5))
 
 This "Getting Started" guide will give you a flavour of what R[^baseR] 
 can do for you. To get the most out of this guide, read it whilst 
-doing the examples and exercises using RStudio[^rstudio]^. 
+doing the examples and exercises using RStudio[^rstudio]^.  
+
+This note is a variant of the original document[^gettingstarted] but stresses 
+use of Base R along with careful dependency management as discussed below.
 
 ## Experiment Safely
 
@@ -391,38 +387,40 @@ seq(from = 5, to = 8, length.out = 16)
 
 ## Custom Functions
 
-You can create your own functions (using the `function()` function) which is a 
+You can create your own functions (using the `function()` keyword) which is a 
 very powerful way to extend R. Writing your own functions is outside the scope 
 of this guide. As you get more and more familiar with R it is very likely that you 
 will need to learn do so but for now you don't need to.
 
 ## R Packages
 
-You can do many things with a standard R installation and it can be extended using 
-contributed packages. Packages are like apps for R. They can contain functions, data 
+You can already do many things with a standard R installation---but it can be extended
+using contributed packages. Packages are like apps for R. They can contain functions, data
 and documentation.
 
-### Base R
+## Extending Base R
 
-Base R already comes with over two-thousand functions that have been proven to be versatile,
-reliable and stable.  That is no small feat.  When it is possible to solve a problem with
-_fewer_ external dependencies, doing so follows time-honoured best practices.  Think carefully
-before adding dependencies,
+Base R already comes with over two-thousand functions that have been proven to be
+versatile, reliable and stable.  That is no small feat.  When it is possible to solve a
+problem with _fewer_ external dependencies, doing so follows time-honoured best practices.
+You want to think carefully before adding dependencies.
 
-### `tinyverse`
+## The `tinyverse` View
 
-The philosophy of _less is more_ is at the core of the tinyverse[^tinyverse]. Fewer dependencies 
-means smaller footprint, faster installation, and most importantly fewer nodes in your dependency 
-graph. Experience, as well as both empirical and theorectical software engineering practice 
-have demonstrated that failure increases with complexity. 
+The philosophy of _less is more_ is at the core of the tinyverse[^tinyverse]. Fewer
+dependencies means a smaller footprint, faster installation, and most importantly fewer
+nodes in your dependency graph. Experience, as well as empirical and theorectical
+software engineering practice have demonstrated that failure increases with complexity.
 
-So choosing when to rely on additional packages has to balance the increased functionality a package
-brings with both its history of development, its development model, maintenance status and history
-of both changes and fixes. This _is_ complex, and there are no easy answers.  By adding another
-package, we open a door to interface changes we no longer control.  It is clearly valuable at times,
-yet one has to remain aware of the costs that may accrue as a consequence. So this document takes
-the few that _fewer is better_, and will rely on only two additional packages: `data.table` for data
-wrangling as well as input/output, and `ggplot2` for visualization.
+So choosing when to rely on additional packages has to balance the increased functionality
+a package brings with both its history of development, its development model, maintenance
+status, and history of both changes and fixes. This _is_ a complex topic, and there are no
+easy answers.  But by adding another package, we always open a door to interface changes
+we no longer control.  The added functionality is clearly valuable at times, yet one has
+to remain aware of the costs that may accrue as a consequence. So this document takes the
+view that _fewer is better_, and will rely on only two additional packages:
+`data.table`[^datatable] for data wrangling as well as input/output, and `ggplot2`
+[^ggplot2] for visualization.
 
 <!-- ### `tidyverse` -->
 
@@ -440,7 +438,8 @@ wrangling as well as input/output, and `ggplot2` for visualization.
 
 ## Installation 
 
-If needed, install these two packages via
+If needed, install these two packages via the following command which should pick
+the suitable version for your installation:
 ```{r installation, eval=FALSE}
 install.packages(c("data.table", "ggplot2"))
 ```
@@ -451,6 +450,7 @@ install.packages(c("data.table", "ggplot2"))
 <!-- ```{r usePackage, echo=FALSE, eval=FALSE} -->
 <!-- library(tidyverse) -->
 <!-- ``` -->
+
 
 # Chick Weight Data
 
@@ -494,9 +494,10 @@ ChickWeight %>%
 #CW <- read_csv("ChickWeight.csv")
 ```
 
-First we will import the data from a file called `ChickWeight.csv` using the `fread()` function from
-the `data.table` package. The first thing to do, outside of R, is to open the file `ChickWeight.csv`
-to check what it contains and that it makes sense. Now we can import the data as follows:
+First we will import the data from a file called `ChickWeight.csv` using the `fread()`
+function from the `data.table` package. The first thing to do, outside of R, is to open
+the file `ChickWeight.csv` to check what it contains and that it makes sense. Now we can
+import the data as follows:
 
 <!-- ```{r readCW, message=FALSE, warning=FALSE} -->
 <!-- CW <- read_csv("ChickWeight.csv") -->
@@ -506,16 +507,17 @@ suppressMessages(library(data.table))  # tinyverse
 cw <- fread("ChickWeight.csv")
 ```
 
-All columns (variables) have been read in as numeric values (i.e. `col_double()`) but
-you may see that they are read in a integer (i.e. `col_int()`) due to operating system
-differences. **FIXME**
+<!-- All columns (variables) have been read in as numeric values (i.e. `col_double()`) but -->
+<!-- you may see that they are read in a integer (i.e. `col_int()`) due to operating system -->
+<!-- differences. **FIXME** -->
 
 
 ## Important Note
 
-If all goes well then the data is now stored in an R object called `CW`. If you get the
+If all goes well then the data is now stored in an R object called `cw`. If you get the
 following error message then you need to change the working directory to where the data is
-stored.
+stored. 
+
 ```
 Error: 'ChickWeight.csv' does not exist in current
 working directory ...
@@ -525,6 +527,8 @@ working directory ...
 From the menu bar select "Session - Set Working Directory - Choose Directory..." then 
 go to the directory where the data is stored. Alternatively, within in R, you could use 
 the function `setwd()`[^setwd].
+
+Alternatively, you can specify a full path, using `~` to denote your home directory.
 
 # Looking at the Dataset
 
@@ -537,27 +541,51 @@ To look at the data type just type the object (dataset) name:
 cw
 ```
 
-## `glimpse()` function **FIXME**
+<!-- ## `glimpse()` function **FIXME** -->
 
-If there are too many variables then not all them may be printed. To overcome this issue
-we can use the `glimpse()` function which makes it possible to see every column in your
-dataset (called a "data frame" in R speak).
+<!-- If there are too many variables then not all them may be printed. To overcome this issue -->
+<!-- we can use the `glimpse()` function which makes it possible to see every column in your -->
+<!-- dataset (called a "data frame" in R speak). -->
 <!-- ```{r glimpseCW} -->
 <!-- glimpse(CW) -->
 <!-- ``` -->
 
-Note that `glimpse()` gives the same result on our `data.table` object `cw`.  Alternatively, 
-the base R function `summary()` is very helpful:
+Several base R functions help us inspect the data: `str()` compactly displays the
+structure, `summary()` provides a summry and `head()` and tail()` display the beginning
+and end of the data set.
 
-```{r cwsummary}
+```{r cwsummary, eval=FALSE, echo=FALSE}
+str(cw)
 summary(cw)
 ```
 
+```{r cwsummaryActual, echo=2:3, eval=TRUE, result="asis"}
+str <- function(object, ...) {
+    if (!is.data.frame(object)) {
+        warning("str.data.frame() called with non-data.frame -- coercing to one.")
+        object <- data.frame(object)
+    }
+    cl <- oldClass(object)
+    cl <- cl[cl != "data.frame"]
+    if (0 < length(cl)) 
+        cat("Classes", paste(sQuote(cl), collapse = ", "), "and ")
+    cat("'data.frame':\n  ", nrow(object), " obs. of  ", (p <- length(object)), 
+        " variable", if (p != 1) "s", if (p > 0) ":", "\n", sep = "")
+  #if (length(l <- list(...)) && any("give.length" == names(l))) 
+  #  invisible(NextMethod("str", ...))
+  #else invisible(NextMethod("str", give.length = FALSE, ...))
+  utils:::str.default(object, vec.len=2, strict.width="wrap", ...)
+}
+str(cw)
+summary(cw)
+```
+
+
 ## Interpretation
 
-Both of these show that the dataset has `r nrow(cw)` observations and `r ncol(cw)` 
-variables as we would expect and as compared to the original data file `ChicWeight.csv`. 
-So a good start. 
+This shows that the dataset has `r nrow(cw)` observations and `r ncol(cw)` variables as we
+would expect, and as compared to the original data file `ChickWeight.csv`.  So a good
+start.
 
 ## Exercise
 It is important to look at the last observations of the dataset as it could reveal 
@@ -594,7 +622,7 @@ The graph above does not differentiate between the diets. Let's use a different 
 each diet.
 ```{r addColourPlot, fig.height=2.0}
 # Adding colour for diet
-ggplot(cw, aes(Time, weight, colour=factor(Diet))) +
+ggplot(cw, aes(Time,weight,colour=factor(Diet))) +
   geom_point() 
 ```
 ## Interpretation
@@ -605,7 +633,7 @@ one another (with diet 1 underneath and diet 4 at the top).
 
 ## Factor Variables
 
-Before we continue, we have to make an important change to the `CW` dataset by making
+Before we continue, we have to make an important change to the `cw` dataset by making
 `Diet` and `Time` *factor variables*. This means that R will treat them as categorical
 variables instead of continuous variables. It will simplify our coding. The next section
 will explain the `:=` assignment.
@@ -722,13 +750,15 @@ ggplot(cw, aes(Time, weight, group=Diet,
 
 ```{r resettblprint, echo = FALSE}
 # Temporarily resetting the print limit
-options(tibble.print_min=3, tibble.print_max=3)
-options(datatable.print.topn=2)
+#options(tibble.print_min=3, tibble.print_max=3)
+options(datatable.print.topn=3)
 ```
 
 In this section we will learn how to wrangle (manipulate) datasets using the `data.table`
-package. **FIXME** Let's start with the `mutate()`, `select()`, `rename()`, `filter()` and
-`arrange()` functions.
+package. Conceptually, `data.table` operations can be viewed as `dt[i, j, by]` with some
+intentional similarity to SQL. Here `i` can select (or subset) rows, `j` is used to
+select, summarise or mutate columns, and `by` is the grouping operator.  Numerous examples
+follow.
 
 <!-- ## `mutate()` -->
 ## `j` to select (or transform) columns
@@ -764,11 +794,25 @@ Keeps, drops or reorders variables.
 <!-- ``` -->
 
 ```{r dtselect}
-# Drop the weight variable from CWm1 using minus
-cw[, -c("weight")]  
 # Keep variables Time, Diet and weightKg
 cw[, .(Chick, Time, Diet, weightKg)]
 ```
+
+
+## `j` to summarise 
+
+It can be used to create aggregations, which is particularly handy with the grouping
+operator. The following example computes means and standard deviations of the 'weight'
+variable grouped by 'Diet'.
+
+```{r condmean}
+cw[, .(Mean=mean(weight),SDev=sd(weight)),by=Diet]
+```
+
+
+
+
+
 <!-- ## `rename()` -->
 ## `setnames()` to name or rename
 
@@ -782,6 +826,8 @@ setnames(cw, c("Diet", "weight"),
          c("Group", "Weight"))
 cw[]
 ```
+
+
 
 <!-- ## `filter()` -->
 ## `i` operator
@@ -816,7 +862,7 @@ cw
 
 ## Exercise
 
-What does the `desc()` do? Try using `desc(Time)`.  **FIXME**
+What does the `order()` do? Try using `order(Time)` in the `i` column. 
 
 <!-- # Tidyverse: Pipe operator ` %>%` -->
 
@@ -836,9 +882,9 @@ What does the `desc()` do? Try using `desc(Time)`.  **FIXME**
 
 # Chaining 
 
-In reality you will end up doing multiple data wrangling steps that you want to save.  Neither are
-optimal as they have their own issues. This is where the 'chaining' of `data.table` operations comes
-to the rescue:
+You may want to do multiple data wrangling steps at once. This is where the 'chaining' of
+`data.table` operations (_i.e._, several sets of commands with square brackets) comes to
+the rescue:
 
 ```{r resetW, echo=FALSE}
 cw[, `:=`(weight=Weight, Diet=Group) ]        
@@ -934,12 +980,12 @@ CWS <- cw[Time %in% c(0,21),
             Min    = min(weight),
             Max    = max(weight)  ),
           by=.(Diet, Time)]
-options(digits=3)  ## tighter display here
+options(digits=3)  # tighter display here
 CWS
 ```
 
 
-Let's make the summaries "prettier" for a report or publication.
+Let's make the summaries "prettier" for a possible report or publication.
 
 <!-- ```{r prettySum, eval=FALSE} -->
 <!-- prettySumCW <- sumCW %>%  -->
@@ -952,19 +998,24 @@ Let's make the summaries "prettier" for a report or publication.
 <!-- ``` -->
 
 ```{r dtpretty}
-CWS[, Mean_SD := paste0(format(Mean,digits=1)," (",
+CWS[, Mean_SD := paste0(format(Mean,digits=1),
+                        " (",
                         format(SDev,digits=2),
                         ")")]
 CWS[, Range := paste(Min, "-", Max)]
-prettyCWSum <- CWS[, .(Diet, Time, N, Mean_SD,
-                       Median, Range),
+prettyCWSum <- CWS[ , .(Diet, Time, N, Mean_SD,
+                        Median, Range),
                    on=.(Diet, Time)]
 prettyCWSum
 ```
 
+
+
 ## Final Table
 
-Eventually you should be able to produce[^kable] a publication-ready version such as the following table (whose code we are hiding here for compactness, full details are of course in the sources):
+Eventually you should be able to produce a publication-ready version such as the
+following table. Its code uses the `kable` and `kableExtra` and is hidden here 
+for compactness, full details are of course in the sources.
 
 <!-- ` ` `{r prettyKable, echo = FALSE} -->
 <!-- prettySumCW %>%  -->
@@ -983,7 +1034,7 @@ tbl <- kable(prettyCWSum[Time %in% c(0,21), ], "latex",
              booktabs = TRUE, linesep = "", align = "cccrc") 
 tbl <- kable_styling(tbl, position = "center")
 tbl <- row_spec(tbl, 0, bold = TRUE) 
-#tbl <- row_spec(tbl, c(2, 4, 6, 8), background = "lightgray")
+tbl <- row_spec(tbl, c(2, 4, 6, 8), background = "lightgray")
 tbl
 ```
 
@@ -1031,6 +1082,7 @@ options(tibble.print_min=10, tibble.print_max=20)
 [^rstudio]: RStudio IDE: [https://www.rstudio.com/products/RStudio/](https://www.rstudio.com/products/RStudio/)
 [^setwd]: Use `getwd()` to see the current working directory and `setwd("/to/data/path/data.csv")` to change it (important to use `/` even for Microsoft Windows).
 [^Rdatasets]: Type `data()` in the R console to see a list of the datasets.
-[^kable]: Using the `kable()` function from the `knitr` package with functions from the `kableExtra` package.
 [^CWfup]: I contacted the source authors and kindly received the following reply *"They were mainly undergraduate projects, final-year, rather than theses, so, unfortunately, it's unlikely that any record remains, particularly after so many years."*
-
+[^datatable]: data.table: [http://r-datatable.com](http://r-datatable.com)
+[^ggplot2]: ggplot2: [https://ggplot2.tidyverse.org](https://ggplot2.tidyverse.org)
+[^gettingstarted]: Getting Started with R: [https://github.com/saghirb/Getting-Started-in-R](https://github.com/saghirb/Getting-Started-in-R)
