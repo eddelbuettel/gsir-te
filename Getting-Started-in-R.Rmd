@@ -1,5 +1,5 @@
 ---
-title: "Getting Started in Base R"
+title: "Getting Started in R: Tinyverse Edition"
 
 # Use letters for affiliations
 author:
@@ -78,18 +78,21 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
                       eval = TRUE,
-                      cache = TRUE,
+                      cache = FALSE,
                       fig.pos = 'H') #, knitr.table.format = 'latex')
 library(data.table)
 library(ggplot2)
 library(knitr)
 library(kableExtra)
-options(width=45)
+options(width=50)
 
 # Making some aesthetic changes for this document
 theme_set(theme_gray(base_size = 9))
 update_geom_defaults("point", list(size = 0.5))
 update_geom_defaults("boxplot", list(outlier.size = 0.5))
+
+# Temporarily resetting the print limit
+options(datatable.print.topn=3)
 ```
 
 # Preface
@@ -98,8 +101,8 @@ This "Getting Started" guide will give you a flavour of what R[^baseR]
 can do for you. To get the most out of this guide, read it whilst 
 doing the examples and exercises using RStudio[^rstudio]^.  
 
-This note is a variant of the original document[^gettingstarted] but stresses 
-use of Base R along with careful dependency management as discussed below.
+This note is a variant of the original document[^gettingstarted] but stresses the use of Base R
+along with careful dependency management as discussed below.
 
 ## Experiment Safely
 
@@ -164,8 +167,10 @@ apropos("mean")
 ## Help Examples
 
 Use the `example()` function to run the examples at the end of the help for a function:
-```{r egttest}
+```{r egttest, echo=2}
+options(prompt="> ")
 example(mean)
+options(prompt="R> ")
 ```
 
 ## RStudio Help 
@@ -179,22 +184,40 @@ Rstudio provides search box in the "Help" tab to make your life easier (see Figu
 
 There are a lot of on-line resources that can help. However you must understand that 
 blindly copying and pasting could be harmful and further it won't help you to learn and
-develop. When you search on-line use `[R]` in your search term (e.g. "`[R] summary 
-statistics by group`"). Note that often there is more than one solution to your problem. 
+develop. When you search on-line use `[R]` in your search term (e.g. "[R] summary 
+statistics by group"). Note that often there is more than one solution to your problem. 
 It is good to investigate the different options.
 
 ## Exercise
 
 Try the following: 
 
-1. `help(median)`, 
+1. `help(median)`
 2. `?sd`
 3. `?max`
+
+## Warning
+
+If an R command is not complete then R will show a plus sign (`+`) prompt on second and subsequent
+lines until the command syntax is correct.
+```{r continuation, echo=TRUE, eval=FALSE}
++
+```
+To break out this, press the escape key (`ESC`).
+
+## Hint
+
+To recall a previously typed commands use the up arrow key ($\uparrow$).  To go between previously
+typed commands use the up and down arrow ($\downarrow$) keys. To modify or correct a command use the
+left ($\leftarrow$) and right arrow ($\rightarrow$) keys.
+
+
+
 
 # Some R Concepts
 
 In R speak, scalars, vectors/variables and datasets are called ***objects***. To create
-objects (things) we have to use the assignment operator "`<-`". For example, below, object 
+objects (things) we have to use the assignment operator `<-`. For example, below, object 
 `height` is assigned a value of 173 (typing `height` shows its value):
 ```{r createObjs}
 height <- 173
@@ -217,7 +240,7 @@ AgE
 ## New lines
 
 R commands are usually separated by a new line but they can also be separated by a 
-semicolon "`;`". 
+semicolon: `;`. 
 ```{r semicolon}
 Name <- "Leo"; Age <- 25; City <- "Lisbon"
 Name; Age; City
@@ -233,21 +256,6 @@ sign (`#`). Everything after the hash to the end of the line will be ignored by 
 City     # Text after "#" is ignored.
 ```
 
-## Warning
-
-If an R command is not complete then R will show a plus sign ("`+`") prompt
-on second and subsequent lines until the command syntax is correct.
-```{r continuation, echo=TRUE, eval=FALSE}
-+
-```
-To break out this, press the escape key (`ESC`).
-
-## Recalling previous commands
-
-To recall a previously typed commands use the up arrow key ($\uparrow$).
-To go between previously typed commands use the up and down arrow
-($\downarrow$) keys. Once a command is recalled, it can be modified/corrected
-using the left ($\leftarrow$) and right arrow ($\rightarrow$) keys.
 
 # R as a Calculator
 
@@ -422,19 +430,6 @@ view that _fewer is better_, and will rely on only two additional packages:
 `data.table`[^datatable] for data wrangling as well as input/output, and `ggplot2`
 [^ggplot2] for visualization.
 
-<!-- ### `tidyverse` -->
-
-<!-- The `tidyverse` package[ ^ tidyverse ] is a collection of packages the lets you import,  -->
-<!-- manipulate, explore, visualise and model data in a harmonised and consistent way which  -->
-<!-- helps you to be more productive. We will use the `tidyverse` to visualise and summarise  -->
-<!-- data.  -->
-
-
-<!-- *MUST DO: Ensure that the `tidyverse` package is installed* -->
-
-<!-- ```{r installTidyverse, echo=TRUE, eval=FALSE} -->
-<!-- install.packages("tidyverse") -->
-<!-- ``` -->
 
 ## Installation 
 
@@ -443,14 +438,6 @@ the suitable version for your installation:
 ```{r installation, eval=FALSE}
 install.packages(c("data.table", "ggplot2"))
 ```
-
-<!-- ## Loading packages -->
-
-<!-- To use the `tidyverse` package load it using the `library()` function: -->
-<!-- ```{r usePackage, echo=FALSE, eval=FALSE} -->
-<!-- library(tidyverse) -->
-<!-- ``` -->
-
 
 # Chick Weight Data
 
@@ -499,18 +486,10 @@ function from the `data.table` package. The first thing to do, outside of R, is 
 the file `ChickWeight.csv` to check what it contains and that it makes sense. Now we can
 import the data as follows:
 
-<!-- ```{r readCW, message=FALSE, warning=FALSE} -->
-<!-- CW <- read_csv("ChickWeight.csv") -->
-<!-- ``` -->
 ```{r cwdt}
 suppressMessages(library(data.table))  # tinyverse
 cw <- fread("ChickWeight.csv")
 ```
-
-<!-- All columns (variables) have been read in as numeric values (i.e. `col_double()`) but -->
-<!-- you may see that they are read in a integer (i.e. `col_int()`) due to operating system -->
-<!-- differences. **FIXME** -->
-
 
 ## Important Note
 
@@ -526,40 +505,22 @@ working directory ...
 
 From the menu bar select "Session - Set Working Directory - Choose Directory..." then 
 go to the directory where the data is stored. Alternatively, within in R, you could use 
-the function `setwd()`[^setwd].
-
-Alternatively, you can specify a full path, using `~` to denote your home directory.
+the function `setwd()`[^setwd]. You can also specify a full path, using `~` to denote your home
+directory. 
 
 # Looking at the Dataset
 
 To look at the data type just type the object (dataset) name: 
-<!-- ```{r printCW} -->
-<!-- CW -->
-<!-- ``` -->
 
 ```{r printcw}
 cw
 ```
 
-<!-- ## `glimpse()` function **FIXME** -->
+Several base R functions help us inspect the data: `str()` compactly displays the structure,
+`summary()` provides a summry, and `head()` and tail()` display the beginning and end of the data
+set.
 
-<!-- If there are too many variables then not all them may be printed. To overcome this issue -->
-<!-- we can use the `glimpse()` function which makes it possible to see every column in your -->
-<!-- dataset (called a "data frame" in R speak). -->
-<!-- ```{r glimpseCW} -->
-<!-- glimpse(CW) -->
-<!-- ``` -->
-
-Several base R functions help us inspect the data: `str()` compactly displays the
-structure, `summary()` provides a summry and `head()` and tail()` display the beginning
-and end of the data set.
-
-```{r cwsummary, eval=FALSE, echo=FALSE}
-str(cw)
-summary(cw)
-```
-
-```{r cwsummaryActual, echo=2:3, eval=TRUE, result="asis"}
+```{r cwsummaryActual, echo=3:4, eval=TRUE, result="asis"}
 str <- function(object, ...) {
     if (!is.data.frame(object)) {
         warning("str.data.frame() called with non-data.frame -- coercing to one.")
@@ -576,16 +537,19 @@ str <- function(object, ...) {
   #else invisible(NextMethod("str", give.length = FALSE, ...))
   utils:::str.default(object, vec.len=2, strict.width="wrap", ...)
 }
+options(digits=5,width=45)
 str(cw)
 summary(cw)
+options(digits=6,width=50)
 ```
 
 
 ## Interpretation
 
-This shows that the dataset has `r nrow(cw)` observations and `r ncol(cw)` variables as we
-would expect, and as compared to the original data file `ChickWeight.csv`.  So a good
-start.
+This shows that the dataset has `r nrow(cw)` observations and `r ncol(cw)` variables as we would
+expect, and as compared to the original data file `ChickWeight.csv`.  So a good start. `str()` calls
+notes the types of variable (all `integer` here) and the first few values.  The RStudio
+'Environment' pane provides a very similar view.
 
 ## Exercise
 It is important to look at the last observations of the dataset as it could reveal 
@@ -635,26 +599,24 @@ one another (with diet 1 underneath and diet 4 at the top).
 
 Before we continue, we have to make an important change to the `cw` dataset by making
 `Diet` and `Time` *factor variables*. This means that R will treat them as categorical
-variables instead of continuous variables. It will simplify our coding. The next section
-will explain the `:=` assignment.
-<!-- ```{r makeFactor} -->
-<!-- CW <- mutate(CW, Diet = factor(Diet)) -->
-<!-- CW <- mutate(CW, Time = factor(Time)) -->
-<!-- glimpse(CW) -->
-<!-- ``` -->
+variables instead of continuous variables. It will simplify our coding. 
 
-```{r cwfactor}
-cw[, Diet := factor(Diet)]  # update by reference
+```{r cwfactor, echo=2:4}
+options(digits=2)
+cw[, Diet := factor(Diet)]  
 cw[, Time := factor(Time)]
 summary(cw) # notice the difference ?
+options(digits=6)
 ```
+
+Notice that the `:=` operator altered the variable "in-place", and no explicit assignment was
+made. This is a key feature of `data.table` which operated "by reference": changes are made in
+reference to one instance of the `cw` variable, rather than by creating updated copies. It is a key
+feature of `data.table`.
+
 
 ## `facet_wrap()` function
 To plot each diet separately in a grid using `facet_wrap()`:
-<!-- ggplot(CW, aes(Time, weight, colour=Diet)) + -->
-<!--   geom_point() + -->
-<!--   facet_wrap(~Diet) + -->
-<!--   theme(legend.position = "bottom") -->
 
 ```{r jitterPlot}
 # Adding jitter to the points
@@ -745,14 +707,8 @@ ggplot(cw, aes(Time, weight, group=Diet,
 
 
 
-<!-- # Tidyverse: Data Wrangling Basics -->
 # `data.table` Data Wrangling Basics
 
-```{r resettblprint, echo = FALSE}
-# Temporarily resetting the print limit
-#options(tibble.print_min=3, tibble.print_max=3)
-options(datatable.print.topn=3)
-```
 
 In this section we will learn how to wrangle (manipulate) datasets using the `data.table`
 package. Conceptually, `data.table` operations can be viewed as `dt[i, j, by]` with some
@@ -760,44 +716,26 @@ intentional similarity to SQL. Here `i` can select (or subset) rows, `j` is used
 select, summarise or mutate columns, and `by` is the grouping operator.  Numerous examples
 follow.
 
-<!-- ## `mutate()` -->
 ## `j` to select (or transform) columns
 
 Adds a new variable (column) or modifies an existing one. We already used this above to
 create factor variables.
 
-<!-- ```{r mutateDemo} -->
-<!-- # Added a column -->
-<!-- CWm1 <- mutate(CW, weightKg = weight/1000) -->
-<!-- CWm1 -->
-<!-- # Modify an existing column -->
-<!-- CWm2 <- mutate(CW, Diet = str_c("Diet ", Diet)) -->
-<!-- CWm2 -->
-<!-- ``` -->
-
 ```{r dtmutate}
-# Added a column
-cw[, weightKg := weight/1000 ][]
-# Modify an existing column
-cw[, Diet := paste0("Dt", Diet) ][]
+cw[, weightKg := weight/1000 ]    # add a column
+cw
+cw[, Diet := paste0("Diet_", Diet)] # mod col.
+cw
 ```
 
-<!-- ## `select()` -->
 ## `j` to select (or transform) columns
 
 Keeps, drops or reorders variables.
-<!-- ```{r selectDemo} -->
-<!-- # Drop the weight variable from CWm1 using minus -->
-<!-- select(CWm1, -weight) -->
-<!-- # Keep variables Time, Diet and weightKg -->
-<!-- select(CWm1, Chick, Time, Diet, weightKg) -->
-<!-- ``` -->
 
 ```{r dtselect}
 # Keep variables Time, Diet and weightKg
 cw[, .(Chick, Time, Diet, weightKg)]
 ```
-
 
 ## `j` to summarise 
 
@@ -810,32 +748,21 @@ cw[, .(Mean=mean(weight),SDev=sd(weight)),by=Diet]
 ```
 
 
-
-
-
-<!-- ## `rename()` -->
 ## `setnames()` to name or rename
 
 Renames variables whilst keeping all variables.
-<!-- ```{r renameDemo} -->
-<!-- rename(CW, Group = Diet, Weight = weight) -->
-<!-- ``` -->
 
 ```{r dtrename}
 setnames(cw, c("Diet", "weight"),
          c("Group", "Weight"))
-cw[]
+cw
 ```
 
 
 
-<!-- ## `filter()` -->
 ## `i` operator
 
 Keeps or drops observations (rows).
-<!-- ```{r filterDemo, eval=FALSE} -->
-<!-- filter(CW, Time==21 & weight>300) -->
-<!-- ``` -->
 
 ```{r dtfilter}
 cw[ Time == 21 & Weight > 300, ]
@@ -845,40 +772,19 @@ For comparing values in vectors use: `<` (less than), `>` (greater than), `<=`
 (less than and equal to), `>=` (greater than and equal to), `==` (equal to) and `!=`
 (not equal to). These can be combined logically using `&` (and) and `|` (or).
 
-<!-- ## `arrange()` -->
 ## Keying observations 
 
 Changes the order of the observations (rows).
-<!-- ```{r arrangeDemo} -->
-<!-- arrange(CW, Chick, Time) -->
-<!-- arrange(CW, desc(weight)) -->
-<!-- ``` -->
 
 ```{r dtarrange}
-cw[, on=.(Weight)] # on the fly
-setkey(cw, Chick, Time) # keyed
+cw[, on=.(Weight)]       # on the fly
+setkey(cw, Chick, Time)  # keyed
 cw
 ```
 
 ## Exercise
 
 What does the `order()` do? Try using `order(Time)` in the `i` column. 
-
-<!-- # Tidyverse: Pipe operator ` %>%` -->
-
-<!-- In reality you will end up doing multiple data wrangling steps that you want to save. -->
-<!-- Neither are optimal as they have their own issues. This is where the pipe operator,  -->
-<!-- `%>%` comes to the rescue: -->
-
-<!-- ```{r pipeOpDemo, eval=FALSE} -->
-<!-- CW21 <- CW %>%  -->
-<!--   filter(Time %in% c(0, 21)) %>%  -->
-<!--   rename(Weight = weight) %>%  -->
-<!--   mutate(Group = factor(str_c("Diet ", Diet))) %>%  -->
-<!--   select(Chick, Group, Time, Weight) %>%  -->
-<!--   arrange(Chick, Time)  -->
-<!-- CW21 -->
-<!-- ``` -->
 
 # Chaining 
 
@@ -898,52 +804,18 @@ cw[ Time %in% c(0,21)][
   , on=.(Chick,Time)][1:5,]
 ```
 
-<!-- ## Read `%>%` as "then" -->
-
-<!-- To understand the code above we should read the pipe operator ` %>%` as "then". -->
-
-<!-- > Create a new dataset (object) called `CW21` using dataset `CW` ***then*** -->
-<!-- keep the data for days 0 and 21 ***then*** rename variable `weight` to `Weight` -->
-<!-- ***then*** create a variable called `Group` ***then*** keep variables `Chick`,  -->
-<!-- `Group`, `Time` and `Weight` and ***then*** finally arrange the data by  -->
-<!-- variables `Chick` and `Time`. -->
-
-<!-- ## In practice -->
-
-<!-- ```{r pipeOpExplain, echo=TRUE, eval=FALSE} -->
-<!-- CW21 <- CW %>%  -->
-<!--   filter(., Time %in% c(0, 21)) %>%  -->
-<!--   rename(., Weight = weight) %>%  -->
-<!--   mutate(., Group=factor(str_c("Diet ",Diet))) %>%  -->
-<!--   select(., Chick, Group, Time, Weight) %>%  -->
-<!--   arrange(., Chick, Time)  -->
-<!-- ``` -->
-
-<!-- The pipe operator, `%>%`, replaces the dots (`.`) with whatever is returned from code -->
-<!-- preceding it. For example, the dot in `filter(., Time %in% c(0, 21))` is replaced by -->
-<!-- `CW`. The output of the `filter(...)` then replaces the dot in  -->
-<!-- `rename(., Weight = weight)` and so on. Think of it as a data assembly line with  -->
-<!-- each function doing its thing and passing it to the next. -->
-
-
-
 # Chick Weight: Summary Statistics
 
 From the data visualisations above we concluded that the diet 3 has the highest mean 
 and diet 4 the least variation. In this section, we will quantify the effects of the 
 diets using summmary statistics. We start by looking at the number of observations 
 and the mean of weight grouped by **diet** and **time**.
-<!-- ```{r mnsdStatCW} -->
-<!-- mnsdCW <- CW %>%  -->
-<!--   group_by(Diet, Time) %>%  -->
-<!--   summarise(N = n(), Mean = mean(weight)) %>%  -->
-<!--   arrange(Diet, Time) -->
-<!-- mnsdCW -->
-<!-- ``` -->
 
 ```{r ctstats}
-cw[ , .(N = .N, Mean = mean(weight)),
-   by=.(Diet, Time)][1:5,]
+cw[, .(N    = .N,            # .N is nb per group
+       Mean = mean(weight)), # compute mean
+   by=.(Diet, Time)][        # group by Diet + Time
+   1:5, ]                    # display rows 1 to 5
 ```
 
 ## `by()` function 
@@ -957,21 +829,8 @@ group size) and the mean (`Mean`) of `weight`.
 Let's also calculate the standard deviation, median, minimum and maximum values but only
 at days 0 and 21.
 
-<!-- ```{r sumCW, eval=FALSE} -->
-<!-- sumCW <-  CW %>%  -->
-<!--   filter(Time %in% c(0, 21)) %>%  -->
-<!--   group_by(Diet, Time) %>%  -->
-<!--   summarise(N = n(), -->
-<!--             Mean = mean(weight), -->
-<!--             SD = sd(weight), -->
-<!--             Median = median(weight), -->
-<!--             Min = min(weight), -->
-<!--             Max = max(weight)) %>%  -->
-<!--   arrange(Diet, Time) -->
-<!-- sumCW -->
-<!-- ``` -->
-
-```{r dtSum}
+```{r dtSum, echo=2:3}
+options(digits=3)  	# tighter display here
 CWS <- cw[Time %in% c(0,21),
           .(N      = .N, 
             Mean   = mean(weight),
@@ -980,22 +839,11 @@ CWS <- cw[Time %in% c(0,21),
             Min    = min(weight),
             Max    = max(weight)  ),
           by=.(Diet, Time)]
-options(digits=3)  # tighter display here
 CWS
 ```
 
 
 Let's make the summaries "prettier" for a possible report or publication.
-
-<!-- ```{r prettySum, eval=FALSE} -->
-<!-- prettySumCW <- sumCW %>%  -->
-<!--  mutate(Mean_SD = str_c(format(Mean, digits=1), -->
-<!--            " (", format(SD, digits=2), ")")) %>%  -->
-<!--  mutate(Range = str_c(Min, " - ", Max)) %>%  -->
-<!--  select(Diet, Time, N, Mean_SD, Median, Range) %>% -->
-<!--  arrange(Diet, Time) -->
-<!-- prettySumCW -->
-<!-- ``` -->
 
 ```{r dtpretty}
 CWS[, Mean_SD := paste0(format(Mean,digits=1),
@@ -1017,21 +865,10 @@ Eventually you should be able to produce a publication-ready version such as the
 following table. Its code uses the `kable` and `kableExtra` and is hidden here 
 for compactness, full details are of course in the sources.
 
-<!-- ` ` `{r prettyKable, echo = FALSE} -->
-<!-- prettySumCW %>%  -->
-<!-- kable("latex", booktabs = TRUE, linesep = "", align = "cccrc") %>%  -->
-<!--   kable_styling(position = "center") %>%  -->
-<!--   row_spec(0, bold = TRUE) %>% -->
-<!--   row_spec(c(2, 4, 6, 8), background = "lightgray") -->
-<!--   # Uncomment below once bugs are fixed - https://github.com/haozhu233/kableExtra/issues/243 & 237 -->
-<!--   # column_spec(1, bold = T) %>% -->
-<!--   # collapse_rows(columns = 1, latex_hline = "none", valign = "top") -->
-<!-- ` ` ` -->
-
 
 ```{r dtprettyKable, echo = FALSE}
 tbl <- kable(prettyCWSum[Time %in% c(0,21), ], "latex",
-             booktabs = TRUE, linesep = "", align = "cccrc") 
+             booktabs = TRUE, linesep = "", align = "crrrrr") 
 tbl <- kable_styling(tbl, position = "center")
 tbl <- row_spec(tbl, 0, bold = TRUE) 
 tbl <- row_spec(tbl, c(2, 4, 6, 8), background = "lightgray")
@@ -1069,20 +906,23 @@ is hard to recommend any in particular as it depends on how you learn best. Find
 that work for you (paying attention to the quality) and don't be afraid to make mistakes
 or ask questions. Most importantly have fun.
 
+# Acknowledgements
+
+Special thanks to [Saghir Bashir](https://github.com/saghirb) for publising the initial version of
+[_Getting Started with R_](https://github.com/saghirb/Getting-Started-in-R), [Brodie
+Gaslam](https://github.com/brodieG) for feedback on this version, and to [Joshua
+Ulrich](https://github.com/joshuaulrich/) for many discussions about [The
+Tinyverse](http://tinyverse.org).
 
 
-```{r tblprintdef, echo = FALSE}
-# Resetting the print limit back to the defaults
-options(tibble.print_min=10, tibble.print_max=20)
-```
 
 
 [^baseR]: R project: [https://www.r-project.org/](https://www.r-project.org/)
 [^tinyverse]: Tinyverse: [http://www.tinyverse.org/](http://www.tinyverse.org/)
 [^rstudio]: RStudio IDE: [https://www.rstudio.com/products/RStudio/](https://www.rstudio.com/products/RStudio/)
-[^setwd]: Use `getwd()` to see the current working directory and `setwd("/to/data/path/data.csv")` to change it (important to use `/` even for Microsoft Windows).
+[^setwd]: Use `getwd()` for the current directory and `setwd("/to/data/path/data.csv")` to change it.
 [^Rdatasets]: Type `data()` in the R console to see a list of the datasets.
-[^CWfup]: I contacted the source authors and kindly received the following reply *"They were mainly undergraduate projects, final-year, rather than theses, so, unfortunately, it's unlikely that any record remains, particularly after so many years."*
+[^CWfup]: I (ie Saghir) contacted the source authors and kindly received the following reply *"They were mainly undergraduate projects, final-year, rather than theses, so, unfortunately, it's unlikely that any record remains, particularly after so many years."*
 [^datatable]: data.table: [http://r-datatable.com](http://r-datatable.com)
 [^ggplot2]: ggplot2: [https://ggplot2.tidyverse.org](https://ggplot2.tidyverse.org)
 [^gettingstarted]: Getting Started with R: [https://github.com/saghirb/Getting-Started-in-R](https://github.com/saghirb/Getting-Started-in-R)
