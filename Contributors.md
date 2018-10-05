@@ -14,6 +14,7 @@ Contributors
 - [Hugo Ferreira](https://twitter.com/hu_daa)
 - Jordi Tarrés-Call
 - [Brodie Gaslam](https://github.com/brodieG)
+- [Matt Dowle](https://github.com/mattdowle)
 
 ## List of Contributors
 - ...

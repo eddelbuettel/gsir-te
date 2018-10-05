@@ -92,7 +92,8 @@ update_geom_defaults("point", list(size = 0.5))
 update_geom_defaults("boxplot", list(outlier.size = 0.5))
 
 # Temporarily resetting the print limit
-options(datatable.print.topn=3)
+op <- options()
+options(datatable.print.topn=3, width=50)
 ```
 
 # Preface
@@ -144,7 +145,7 @@ select "*No*" to prevent errors being carried over from previous sessions).
 
 # R Help
 
-I strongly recommend that you learn how to use R's useful and extensive built-in help 
+We strongly recommend that you learn how to use R's useful and extensive built-in help 
 system which is an essential part of finding solutions to your R programming problems. 
 
 ## `help()` function
@@ -611,8 +612,8 @@ options(digits=6)
 
 Notice that the `:=` operator altered the variable "in-place", and no explicit assignment was
 made. This is a key feature of `data.table` which operated "by reference": changes are made in
-reference to one instance of the `cw` variable, rather than by creating updated copies. It is a key
-feature of `data.table`.
+reference to one instance of the `cw` variable, rather than by creating updated copies. We will 
+revisit this `:=` assignment below.
 
 
 ## `facet_wrap()` function
@@ -774,11 +775,11 @@ For comparing values in vectors use: `<` (less than), `>` (greater than), `<=`
 
 ## Keying observations 
 
-Changes the order of the observations (rows).
+Setting a key changes the order of the observations (rows), and also makes indexing faster.
 
 ```{r dtarrange}
-cw[, on=.(Weight)]       # on the fly
-setkey(cw, Chick, Time)  # keyed
+cw[order(Weight), ]       # on the fly
+setkey(cw, Chick, Time)   # setting a key
 cw
 ```
 
@@ -793,15 +794,17 @@ You may want to do multiple data wrangling steps at once. This is where the 'cha
 the rescue:
 
 ```{r resetW, echo=FALSE}
-cw[, `:=`(weight=Weight, Diet=Group) ]        
+#cw[, `:=`(weight=Weight, Diet=Group) ]        
+cw <- fread("ChickWeight.csv")
 ```
 
 ```{r cwchained}
-cw[ Time %in% c(0,21)][
-  , Weight := weight][
-  , Group := factor(paste("Diet", Diet))][
-  , .(Chick, Group, Time, Weight)][ 
-  , on=.(Chick,Time)][1:5,]
+cw[Time %in% c(0,21),][           # i: select rows
+  , Weight := weight][            # j: mutate
+  , Group := factor(paste0("Diet_", Diet))][
+  , .(Chick,Group,Time,Weight)][  # j: arrange
+   order(Chick,Time)][            # i: order
+  1:5,]                           # i: subset
 ```
 
 # Chick Weight: Summary Statistics
@@ -818,7 +821,7 @@ cw[, .(N    = .N,            # .N is nb per group
    1:5, ]                    # display rows 1 to 5
 ```
 
-## `by()` function 
+## `by=` argument
 
 For each distinct combination of `Diet` and `Time`, the chick weight data is summarised
 into the number of observations (`N`, using the internal variable `.N` denoting current
@@ -910,9 +913,9 @@ or ask questions. Most importantly have fun.
 
 Special thanks to [Saghir Bashir](https://github.com/saghirb) for publising the initial version of
 [_Getting Started with R_](https://github.com/saghirb/Getting-Started-in-R), [Brodie
-Gaslam](https://github.com/brodieG) for feedback on this version, and to [Joshua
-Ulrich](https://github.com/joshuaulrich/) for many discussions about [The
-Tinyverse](http://tinyverse.org).
+Gaslam](https://github.com/brodieG) and [Matt Dowle](https://github.com/mattdowle) for feedback on
+this version, and to [Joshua Ulrich](https://github.com/joshuaulrich/) for many discussions about
+[The Tinyverse](http://tinyverse.org).
 
 
 
@@ -926,3 +929,7 @@ Tinyverse](http://tinyverse.org).
 [^datatable]: data.table: [http://r-datatable.com](http://r-datatable.com)
 [^ggplot2]: ggplot2: [https://ggplot2.tidyverse.org](https://ggplot2.tidyverse.org)
 [^gettingstarted]: Getting Started with R: [https://github.com/saghirb/Getting-Started-in-R](https://github.com/saghirb/Getting-Started-in-R)
+
+```{r reset, include=FALSE}
+options(op)
+```
