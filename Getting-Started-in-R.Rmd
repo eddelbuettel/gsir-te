@@ -130,7 +130,7 @@ starts with information about the version number, license and contributors.
 The last line is a standard prompt "`>`" that indicates R is ready and expecting
 instructions to do something.
 ```{r RStudioScreenshot, out.width="3.4in", fig.show='hold', fig.cap="\\label{fig:rstudio}RStudio Screenshot with Console on the left and  Help tab in the bottom right", echo=FALSE}
-include_graphics("RStudio-Screenshot.png")
+include_graphics("figures/RStudio-Screenshot.png")
 ```
 
 ## Quitting R & RStudio
@@ -473,12 +473,12 @@ Investigate the *effect of diet on the weight over time*.
 
 # Importing The Data
 
-```{r writeCW, echo=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
-ChickWeight %>%
-  select(Chick, Diet, Time, weight) %>% 
-  arrange(Chick, Diet, Time) %>% 
-  write_csv("ChickWeight.csv")
-#CW <- read_csv("ChickWeight.csv")
+```{r writeCW, echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE}
+## data.table already loaded above
+CW <- data.table(ChickWeight)
+if (!file.exists("ChickWeight.csv"))
+    fwrite(CW[, .(Chick, Diet, Time, weight)],
+           file="ChickWeight.csv")
 ```
 
 First we will import the data from a file called `ChickWeight.csv` using the `fread()`
