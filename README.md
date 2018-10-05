@@ -1,6 +1,6 @@
 ## Getting Started in R
 
-An eight-page pdf guide for "Getting Started in R".
+An [eight-page pdf guide](getting-started-in.pdf) for "Getting Started in R".
 
 ### Objective
 
