@@ -571,6 +571,8 @@ if you get an error messages.
 ## First plot
 Let's plot the weight data (vertical axis) over time (horizontal axis).
 ```{r emptyPlot, fig.width=1.74, fig.height=1.74, fig.show='hold', fig.align='center'}
+# (Silently) load the plotting package
+suppressMessages(library(ggplot2))
 # An empty plot (the plot on the left)
 ggplot(cw, aes(Time, weight))  
 # With data (the plot on the right)
