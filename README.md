@@ -6,6 +6,8 @@ An [eight-page pdf guide](https://eddelbuettel.github.io/gsir-te/Getting-Started
 
 To create a short guide that gives a quick overview and introduction to R. 
 
+![](docs/Getting-Started-in-R.p1p2.png)
+
 ### How?
 
 * Using a practical approach of showing how to do things immediately using realistic 
