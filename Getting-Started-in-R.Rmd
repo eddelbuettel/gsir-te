@@ -3,7 +3,7 @@ title: "Getting Started in R: Tinyverse Edition"
 
 # Use letters for affiliations
 author:
-  - name: Saghir Bashir, Dirk Eddelbuettel
+  - name: Saghir Bashir and Dirk Eddelbuettel
 #     affiliation: a
 # address:
 #   - code: a
@@ -32,7 +32,8 @@ keywords:
   - R
   - Statistics
   - Data Science
-
+  - Tinyverse
+  
 # Paper size for document, values of letterpaper and a4paper
 #papersize: a4
 papersize: letter
