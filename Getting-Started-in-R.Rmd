@@ -309,7 +309,7 @@ roomArea
 
 ## Text objects
 
-You can also assign text to an objects.
+You can also assign text to an object.
 ```{r assignText}
 Greeting <- "Hello World!"
 Greeting
@@ -342,7 +342,7 @@ s1
 
 ## Vector operations
 
-You can do also calculations on vectors, for example using `x1` from above:
+You can also do calculations on vectors, for example using `x1` from above:
 ```{r operationsVecs}
 x1 * 2
 round(sqrt(x1*2.6), 2)
@@ -361,7 +361,7 @@ x3
 ## Managing Objects
 
 Use function `ls()` to list the objects in your workspace. The `rm()` function removes
-(delete) them.
+(deletes) them.
 ```{r lsrm}
 ls()
 rm(x, x1, x2, x3, xm, r1, s1, AgE, age)
@@ -400,7 +400,7 @@ seq(from = 5, to = 8, length.out = 16)
 You can create your own functions (using the `function()` keyword) which is a 
 very powerful way to extend R. Writing your own functions is outside the scope 
 of this guide. As you get more and more familiar with R it is very likely that you 
-will need to learn do so but for now you don't need to.
+will need to learn how to do so but for now you don't need to.
 
 ## R Packages
 
@@ -419,7 +419,7 @@ You want to think carefully before adding dependencies.
 
 The philosophy of _less is more_ is at the core of the tinyverse[^tinyverse]. Fewer
 dependencies means a smaller footprint, faster installation, and most importantly fewer
-nodes in your dependency graph. Experience, as well as empirical and theorectical
+nodes in your dependency graph. Experience, as well as empirical and theoretical
 software engineering practice have demonstrated that failure increases with complexity.
 
 So choosing when to rely on additional packages has to balance the increased functionality
@@ -503,6 +503,7 @@ stored.
 Error: 'ChickWeight.csv' does not exist in current
 working directory ...
 ```
+
 ## Change the working directory in RStudio
 
 From the menu bar select "Session - Set Working Directory - Choose Directory..." then 
@@ -519,7 +520,7 @@ cw
 ```
 
 Several base R functions help us inspect the data: `str()` compactly displays the structure,
-`summary()` provides a summry, and `head()` and tail()` display the beginning and end of the data
+`summary()` provides a summary, and `head()` and `tail()` display the beginning and end of the data
 set.
 
 ```{r cwsummaryActual, echo=3:4, eval=TRUE, result="asis"}
@@ -549,8 +550,8 @@ options(digits=6,width=50)
 ## Interpretation
 
 This shows that the dataset has `r nrow(cw)` observations and `r ncol(cw)` variables as we would
-expect, and as compared to the original data file `ChickWeight.csv`.  So a good start. `str()` calls
-notes the types of variable (all `integer` here) and the first few values.  The RStudio
+expect, and as compared to the original data file `ChickWeight.csv`.  So a good start. `str()` call
+notes the types of variables (all `integer` here) and the first few values.  The RStudio
 'Environment' pane provides a very similar view.
 
 ## Exercise
@@ -593,6 +594,7 @@ each diet.
 ggplot(cw, aes(Time,weight,colour=factor(Diet))) +
   geom_point() 
 ```
+
 ## Interpretation
 
 It is difficult to conclude anything from this graph as the points are printed on top of
@@ -631,7 +633,7 @@ ggplot(cw, aes(Time, weight, colour=Diet)) +
 ```
 
 ## Exercise
-To overcome the issue of ovelapping points we can ***jitter*** the points using 
+To overcome the issue of overlapping points we can ***jitter*** the points using 
 `geom_jitter()`. Replace the `geom_point()` above with `geom_jitter()`. What do you
 observe?
 
@@ -657,7 +659,7 @@ ggplot(cw, aes(Time, weight,
 
 ## Interpretation
 
-We can see that diet 3 has the highest mean weight gains by the end of the experiment but
+We can see that diet 3 has the highest mean weight gain by the end of the experiment but
 we don't have any information about the variation (uncertainty) in the data.
 
 ## Exercise
@@ -687,7 +689,7 @@ than diet 4 which is consistent with our findings so far.
 
 ## Exercise
 
-Add the following information to the the above plot:
+Add the following information to the above plot:
 
 * x-axis label (use `xlab()`): "Time (days)"
 * y-axis label (use `ylab()`): "Weight (grams)"
@@ -814,7 +816,7 @@ cw[Time %in% c(0,21),][           # i: select rows
 
 From the data visualisations above we concluded that the diet 3 has the highest mean 
 and diet 4 the least variation. In this section, we will quantify the effects of the 
-diets using summmary statistics. We start by looking at the number of observations 
+diets using summary statistics. We start by looking at the number of observations 
 and the mean of weight grouped by **diet** and **time**.
 
 ```{r ctstats}
@@ -895,7 +897,7 @@ and diet 4 lost 1 from 10. This could be a sign of some issues (e.g. safety).
 
 Information on bias reduction measures is not given and is not available either[^CWfup].
 We don't know if the chicks were fairly and appropriately randomised to the diets and 
-whether the groups are compariable (e.g., same breed of chicks, sex (gender) balance). 
+whether the groups are comparable (e.g., same breed of chicks, sex (gender) balance). 
 Hence we should be very cautious with drawing conclusion and taking actions with this 
 data.
 
@@ -915,7 +917,7 @@ or ask questions. Most importantly have fun.
 
 # Acknowledgements
 
-Special thanks to [Saghir Bashir](https://github.com/saghirb) for publising the initial version of
+Special thanks to [Saghir Bashir](https://github.com/saghirb) for publishing the initial version of
 [_Getting Started with R_](https://github.com/saghirb/Getting-Started-in-R), [Brodie
 Gaslam](https://github.com/brodieG) and [Matt Dowle](https://github.com/mattdowle) for feedback on
 this version, and to [Joshua Ulrich](https://github.com/joshuaulrich/) for many discussions about
