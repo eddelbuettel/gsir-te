@@ -15,6 +15,7 @@ Contributors
 - Jordi Tarrés-Call
 - [Brodie Gaslam](https://github.com/brodieG)
 - [Matt Dowle](https://github.com/mattdowle)
+- [Karolis Koncevicius](https://github.com/KKPMW)
 
 ## List of Contributors
 - ...
