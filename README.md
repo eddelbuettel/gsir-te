@@ -1,6 +1,6 @@
 ## Getting Started in R
 
-An [eight-page pdf guide](Getting-Started-in-R.pdf) for "Getting Started in R".
+An [eight-page pdf guide](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.pdf) for "Getting Started in R".
 
 ### Objective
 
@@ -28,9 +28,14 @@ learn how to manipulate, visualise and summarise data.
 
 ### Try it now!
 
-1. [Clone](https://help.github.com/articles/cloning-a-repository/) this repo, or [download the pdf](Getting-Started-in-R.pdf) !
-2. Open [Getting-Started-in-R.pdf](Getting-Started-in-R.pdf) to get started.
-3. Enjoy :)
+1. [Clone](https://help.github.com/articles/cloning-a-repository/) this repo,
+   [download the pdf](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.pdf), or
+   [zip](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.zip) files !
+2. The repository and
+   [zip](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.zip)
+   file contain an RStudio Project file.
+3. Open the Project file, or [Getting-Started-in-R.pdf](Getting-Started-in-R.pdf). to get started.
+4. Enjoy :)
 
 ### Origin
 

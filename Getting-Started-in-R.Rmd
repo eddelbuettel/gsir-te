@@ -121,7 +121,7 @@ without any other data loaded (otherwise you could lose it).
 Make sure that:
 
 1. R and RStudio are installed.
-2. [http://ilustat.com/shared/Getting-Started-in-R.zip](http://ilustat.com/shared/Getting-Started-in-R.zip) has 
+2. [https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.zip](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.zip) has 
 been downloaded and unzipped
 3. Double click `"Getting-Started-in-R.Rproj"` to open RStudio with the setup for this guide. 
 
