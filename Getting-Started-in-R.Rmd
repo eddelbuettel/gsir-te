@@ -484,10 +484,10 @@ if (!file.exists("ChickWeight.csv"))
 ```
 
 First we will import the data from a file called `ChickWeight.csv` using the
-`fread()` function from the `data.table` package which return you a
-`data.table` object (whereas the dataset built into R in a different format).
-The first thing to do, outside of R, is to open the file `ChickWeight.csv` to
-check what it contains and that it makes sense. Now we can import the data as
+`fread()` function from the `data.table` package which returns a `data.table`
+object (whereas the dataset built into R has a different format).  The first
+thing to do, outside of R, is to open the file `ChickWeight.csv` to check
+what it contains and that it makes sense. Now we can import the data as
 follows:
 
 ```{r cwdt}
