@@ -730,7 +730,7 @@ Adds a new variable (column) or modifies an existing one. We already used this a
 create factor variables.
 
 ```{r dtmutate}
-cw[, weightKg := weight/1000 ]    # add a column
+cw[, weightKg := weight/1000]    # add a column
 cw
 cw[, Diet := paste0("Diet_", Diet)] # mod col.
 cw
@@ -773,7 +773,7 @@ cw
 Keeps or drops observations (rows).
 
 ```{r dtfilter}
-cw[ Time == 21 & Weight > 300, ]
+cw[ Time == 21 & Weight > 300]
 ```
 
 For comparing values in vectors use: `<` (less than), `>` (greater than), `<=`
@@ -785,7 +785,7 @@ For comparing values in vectors use: `<` (less than), `>` (greater than), `<=`
 Setting a key changes the order of the observations (rows), and also makes indexing faster.
 
 ```{r dtarrange}
-cw[order(Weight), ]       # on the fly
+cw[order(Weight)]       # on the fly
 setkey(cw, Chick, Time)   # setting a key
 cw
 ```
@@ -801,17 +801,17 @@ You may want to do multiple data wrangling steps at once. This is where the 'cha
 the rescue:
 
 ```{r resetW, echo=FALSE}
-#cw[, `:=`(weight=Weight, Diet=Group) ]        
+#cw[, `:=`(weight=Weight, Diet=Group)]        
 cw <- fread("ChickWeight.csv")
 ```
 
 ```{r cwchained}
-cw[Time %in% c(0,21),][           # i: select rows
+cw[Time %in% c(0,21)][           # i: select rows
   , Weight := weight][            # j: mutate
   , Group := factor(paste0("Diet_", Diet))][
   , .(Chick,Group,Time,Weight)][  # j: arrange
    order(Chick,Time)][            # i: order
-  1:5,]                           # i: subset
+  1:5]                           # i: subset
 ```
 
 # Chick Weight: Summary Statistics
@@ -825,7 +825,7 @@ and the mean of weight grouped by **diet** and **time**.
 cw[, .(N    = .N,            # .N is nb per group
        Mean = mean(weight)), # compute mean
    by=.(Diet, Time)][        # group by Diet + Time
-   1:5, ]                    # display rows 1 to 5
+   1:5]                    # display rows 1 to 5
 ```
 
 ## `by=` argument
@@ -878,7 +878,7 @@ not displayed here for compactness, full details are of course in the sources.
 
 
 ```{r dtprettyKable, echo = FALSE}
-tbl <- kable(prettySum[Time %in% c(0,21), ], "latex",
+tbl <- kable(prettySum[Time %in% c(0,21)], "latex",
              booktabs = TRUE, linesep = "", align = "crrrrr") 
 tbl <- kable_styling(tbl, position = "center")
 tbl <- row_spec(tbl, 0, bold = TRUE) 
