@@ -79,7 +79,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
                       eval = TRUE,
-                      cache = TRUE,
+                      cache = FALSE,
                       fig.pos = 'H') #, knitr.table.format = 'latex')
 library(data.table)
 library(ggplot2)
@@ -364,7 +364,7 @@ Use function `ls()` to list the objects in your workspace. The `rm()` function r
 (deletes) them.
 ```{r lsrm}
 ls()
-rm(x, x1, x2, x3, xm, r1, s1, AgE, age)
+rm(x1, x2, x3, r1, s1, AgE, age)
 ls()
 ```
 
@@ -713,8 +713,6 @@ ggplot(cw, aes(Time, weight, group=Diet,
 
 ```
 
-
-
 # `data.table` Data Wrangling Basics
 
 
@@ -773,7 +771,7 @@ cw
 Keeps or drops observations (rows).
 
 ```{r dtfilter}
-cw[ Time == 21 & Weight > 300]
+cw[Time == 21 & Weight > 300]
 ```
 
 For comparing values in vectors use: `<` (less than), `>` (greater than), `<=`
@@ -806,12 +804,12 @@ cw <- fread("ChickWeight.csv")
 ```
 
 ```{r cwchained}
-cw[Time %in% c(0,21)][           # i: select rows
+cw[Time %in% c(0,21)][            # i: select rows
   , Weight := weight][            # j: mutate
   , Group := factor(paste0("Diet_", Diet))][
   , .(Chick,Group,Time,Weight)][  # j: arrange
    order(Chick,Time)][            # i: order
-  1:5]                           # i: subset
+  1:5]                            # i: subset
 ```
 
 # Chick Weight: Summary Statistics
@@ -825,7 +823,7 @@ and the mean of weight grouped by **diet** and **time**.
 cw[, .(N    = .N,            # .N is nb per group
        Mean = mean(weight)), # compute mean
    by=.(Diet, Time)][        # group by Diet + Time
-   1:5]                    # display rows 1 to 5
+   1:5]                      # display rows 1 to 5
 ```
 
 ## `by=` argument

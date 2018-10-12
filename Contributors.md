@@ -16,6 +16,7 @@ Contributors
 - [Brodie Gaslam](https://github.com/brodieG)
 - [Matt Dowle](https://github.com/mattdowle)
 - [Karolis Koncevicius](https://github.com/KKPMW)
+- [Alec Robitaille](https://github.com/robitalec)
 
 ## List of Contributors
 - ...
