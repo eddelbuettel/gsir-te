@@ -744,6 +744,20 @@ Keeps, drops or reorders variables.
 cw[, .(Chick, Time, Diet, weightKg)]
 ```
 
+<<<<<<< HEAD
+=======
+## `j` to summarise 
+
+It can be used to create aggregations, which is particularly handy with the grouping
+operator. The following example computes means and standard deviations of the 'weight'
+variable grouped by 'Diet'.
+
+```{r condmean}
+cw[, .(Mean=mean(weight),SDev=sd(weight)),by=Diet]
+```
+
+
+>>>>>>> parent of e1ce6a7... Removed the "j to summarise" for three reasons. 1) Summarising by Die…t given the data does not make sense (we could change it to `.(Diet, Time)` but 2) we cover summaries in Section 14, 3) It is consistent with GSiR tidyverse edition. I am working on another edition want them all to be consistent.
 ## `setnames()` to name or rename
 
 Renames variables whilst keeping all variables.
