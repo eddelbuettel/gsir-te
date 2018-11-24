@@ -744,12 +744,6 @@ Keeps, drops or reorders variables.
 cw[, .(Chick, Time, Diet, weightKg)]
 ```
 
-
-```{r condmean}
-cw[, .(Mean=mean(weight),SDev=sd(weight)),by=Diet]
-```
-
-
 ## `setnames()` to name or rename
 
 Renames variables whilst keeping all variables.
@@ -759,8 +753,6 @@ setnames(cw, c("Diet", "weight"),
          c("Group", "Weight"))
 cw
 ```
-
-
 
 ## `i` operator
 
@@ -794,16 +786,12 @@ You may want to do multiple data wrangling steps at once. This is where the 'cha
 `data.table` operations (_i.e._, several sets of commands with square brackets) comes to
 the rescue:
 
-```{r resetW, echo=FALSE}
-#cw[, `:=`(weight=Weight, Diet=Group)]        
-cw <- fread("ChickWeight.csv")
-```
 
 ```{r cwchained}
-cw[Time %in% c(0,21)][            # i: select rows
-  , Weight := weight][            # j: mutate
-  , Group := factor(paste0("Diet_", Diet))][
-  , .(Chick,Group,Time,Weight)][  # j: arrange
+cw21 <- cw[Time %in% c(0,21)][    # i: select rows
+  , weight := Weight][            # j: mutate
+  , Group := factor(Group)][
+  , .(Chick,Group,Time,weight)][  # j: arrange
    order(Chick,Time)][            # i: order
   1:5]                            # i: subset
 ```
@@ -817,8 +805,8 @@ and the mean of weight grouped by **diet** and **time**.
 
 ```{r ctstats}
 cw[, .(N    = .N,            # .N is nb per group
-       Mean = mean(weight)), # compute mean
-   by=.(Diet, Time)][        # group by Diet + Time
+       Mean = mean(Weight)), # compute mean
+   by=.(Group, Time)][        # group by Diet + Time
    1:5]                      # display rows 1 to 5
 ```
 
@@ -837,12 +825,12 @@ We can calculate the standard deviation, median, minimum and maximum values---on
 options(digits=3)  	# tighter display here
 cws <- cw[Time %in% c(0,21),
           .(N      = .N, 
-            Mean   = mean(weight),
-            SDev   = sd(weight),
-            Median = median(weight),
-            Min    = min(weight),
-            Max    = max(weight)  ),
-          by=.(Diet, Time)]
+            Mean   = mean(Weight),
+            SDev   = sd(Weight),
+            Median = median(Weight),
+            Min    = min(Weight),
+            Max    = max(Weight)  ),
+          by=.(Group, Time)]
 cws
 ```
 
@@ -856,9 +844,9 @@ cws[, Mean_SD := paste0(format(Mean,digits=1),
                         format(SDev,digits=2),
                         ")")]
 cws[, Range := paste(Min, "-", Max)]
-prettySum <- cws[ , .(Diet, Time, N, Mean_SD, 
+prettySum <- cws[ , .(Group, Time, N, Mean_SD, 
                       Median, Range)][
-                 order(Diet, Time)]
+                 order(Group, Time)]
 prettySum
 ```
 
