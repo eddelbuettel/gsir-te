@@ -609,13 +609,12 @@ Before we continue, we have to make an important change to the `cw` dataset by m
 `Diet` and `Time` *factor variables*. This means that R will treat them as categorical
 variables instead of continuous variables. It will simplify our coding. 
 
-```{r cwfactor, echo=2:4}
-options(digits=2)
+```{r cwfactor, echo=2:4, result="asis"}
+options(digits=5,width=45)
 cw[, Diet := factor(Diet)]  
 cw[, Time := factor(Time)]
-summary(cw) # notice the difference ?
-str(cw)
-options(digits=6)
+str(cw)     # notice the difference ?
+options(digits=6,width=50)
 ```
 
 Notice that the `:=` operator altered the variable "in-place", and no explicit assignment was
@@ -744,20 +743,20 @@ Keeps, drops or reorders variables.
 cw[, .(Chick, Time, Diet, weightKg)]
 ```
 
-<<<<<<< HEAD
-=======
 ## `j` to summarise 
 
 It can be used to create aggregations, which is particularly handy with the grouping
 operator. The following example computes means and standard deviations of the 'weight'
-variable grouped by 'Diet'.
+variable grouped by 'Diet'. Note that the output has been truncated.
 
-```{r condmean}
-cw[, .(Mean=mean(weight),SDev=sd(weight)),by=Diet]
+```{r condmean, echo=3}
+dt.print.nrows=getOption("datatable.print.nrows")
+options(datatable.print.nrows=8)
+cw[, .(Mean=mean(weight),SDev=sd(weight)),
+   by=.(Diet, Time)]
+options(datatable.print.nrows=dt.print.nrows)
 ```
 
-
->>>>>>> parent of e1ce6a7... Removed the "j to summarise" for three reasons. 1) Summarising by Die…t given the data does not make sense (we could change it to `.(Diet, Time)` but 2) we cover summaries in Section 14, 3) It is consistent with GSiR tidyverse edition. I am working on another edition want them all to be consistent.
 ## `setnames()` to name or rename
 
 Renames variables whilst keeping all variables.
@@ -820,7 +819,7 @@ and the mean of weight grouped by **diet** and **time**.
 ```{r ctstats}
 cw[, .(N    = .N,            # .N is nb per group
        Mean = mean(Weight)), # compute mean
-   by=.(Group, Time)][        # group by Diet + Time
+   by=.(Group, Time)][       # group by Diet + Time
    1:5]                      # display rows 1 to 5
 ```
 
@@ -865,7 +864,6 @@ prettySum
 ```
 
 
-
 ## Final Table
 
 Eventually you should be able to produce a publication-ready version such as the
@@ -882,7 +880,7 @@ tbl <- row_spec(tbl, c(2, 4, 6, 8), background = "lightgray")
 tbl
 ```
 
-\phantom{XX}
+
 ## Interpretation
 
 This summary table offers the same interpretation as before, namely that diet 3 has the 
@@ -920,8 +918,6 @@ Special thanks to [Saghir Bashir](https://github.com/saghirb) for publishing the
 Gaslam](https://github.com/brodieG) and [Matt Dowle](https://github.com/mattdowle) for feedback on
 this version, and to [Joshua Ulrich](https://github.com/joshuaulrich/) for many discussions about
 [The Tinyverse](http://tinyverse.org).
-
-
 
 
 [^baseR]: R project: [https://www.r-project.org/](https://www.r-project.org/)
