@@ -744,11 +744,6 @@ Keeps, drops or reorders variables.
 cw[, .(Chick, Time, Diet, weightKg)]
 ```
 
-## `j` to summarise 
-
-It can be used to create aggregations, which is particularly handy with the grouping
-operator. The following example computes means and standard deviations of the 'weight'
-variable grouped by 'Diet'.
 
 ```{r condmean}
 cw[, .(Mean=mean(weight),SDev=sd(weight)),by=Diet]
