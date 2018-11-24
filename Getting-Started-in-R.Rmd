@@ -614,6 +614,7 @@ options(digits=2)
 cw[, Diet := factor(Diet)]  
 cw[, Time := factor(Time)]
 summary(cw) # notice the difference ?
+str(cw)
 options(digits=6)
 ```
 
