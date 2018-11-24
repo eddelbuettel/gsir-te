@@ -791,7 +791,7 @@ cw
 
 ## Exercise
 
-What does the `order()` do? Try using `order(Time)` in the `i` column. 
+What does the `order()` do? Try using `order(Time)` and  `order(-Time)` in the `i` column. 
 
 # Chaining 
 
