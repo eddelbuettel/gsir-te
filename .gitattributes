@@ -1,0 +1,5 @@
+# Use `.gitattributes` file to reclassify
+# - `.cls` as vendored (comes from our pinp package), and
+# - `.Rmd` files as R (to correct the R count)
+*.cls linguist-vendored=true
+*.Rmd linguist-language=R
