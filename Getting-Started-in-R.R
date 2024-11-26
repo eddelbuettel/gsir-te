@@ -6,7 +6,7 @@ knitr::opts_chunk$set(echo = TRUE,
 library(data.table)
 library(ggplot2)
 library(knitr)
-library(kableExtra)
+library(tinytable)
 options(width=50)
 
 # Making some aesthetic changes for this document
@@ -278,13 +278,8 @@ prettySum <- cws[ , .(Diet, Time, N, Mean_SD,
                  order(Diet, Time)]
 prettySum
 
-## ----dtprettyKable, echo = FALSE-----------------------------------------
-tbl <- kable(prettySum[Time %in% c(0,21), ], "latex",
-             booktabs = TRUE, linesep = "", align = "crrrrr") 
-tbl <- kable_styling(tbl, position = "center")
-tbl <- row_spec(tbl, 0, bold = TRUE) 
-tbl <- row_spec(tbl, c(2, 4, 6, 8), background = "lightgray")
-tbl
+## ----dtprettytable-------------------------------------------------------
+tt(prettySum, theme = "striped")
 
 ## ----reset, include=FALSE------------------------------------------------
 options(op)
