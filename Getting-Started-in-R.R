@@ -7,6 +7,7 @@ library(data.table)
 library(ggplot2)
 library(knitr)
 library(tinytable)
+options(tinytable_theme_placement_latex_float = "H")
 options(width=50)
 
 # Making some aesthetic changes for this document
@@ -279,9 +280,10 @@ prettySum <- cws[ , .(Diet, Time, N, Mean_SD,
 prettySum
 
 ## ----dtprettytable-------------------------------------------------------
-tt(prettySum, theme = "striped") |>
+prettySum |>
+  tt(theme = "striped") |>
   style_tt(i = 0, bold = TRUE) |>
-  format_tt(escape = TRUE)tt(prettySum, theme = "striped")
+  format_tt(escape = TRUE)
 
 ## ----reset, include=FALSE------------------------------------------------
 options(op)
