@@ -279,7 +279,9 @@ prettySum <- cws[ , .(Diet, Time, N, Mean_SD,
 prettySum
 
 ## ----dtprettytable-------------------------------------------------------
-tt(prettySum, theme = "striped")
+tt(prettySum, theme = "striped") |>
+  style_tt(i = 0, bold = TRUE) |>
+  format_tt(escape = TRUE)tt(prettySum, theme = "striped")
 
 ## ----reset, include=FALSE------------------------------------------------
 options(op)
