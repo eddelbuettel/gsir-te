@@ -872,6 +872,7 @@ following table, courtesy of the `tinytable` package.
 
 
 ```{r dtprettytable}
+# library(tinytable)
 prettySum |>
   tt(theme = "striped") |>
   style_tt(i = 0, bold = TRUE) |>

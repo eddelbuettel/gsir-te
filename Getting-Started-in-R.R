@@ -280,6 +280,7 @@ prettySum <- cws[ , .(Diet, Time, N, Mean_SD,
 prettySum
 
 ## ----dtprettytable-------------------------------------------------------
+# library(tinytable)
 prettySum |>
   tt(theme = "striped") |>
   style_tt(i = 0, bold = TRUE) |>
