@@ -84,7 +84,7 @@ knitr::opts_chunk$set(echo = TRUE,
 library(data.table)
 library(ggplot2)
 library(knitr)
-library(kableExtra)
+library(tinytable)
 options(width=50)
 
 # Making some aesthetic changes for this document
@@ -94,7 +94,7 @@ update_geom_defaults("boxplot", list(outlier.size = 0.5))
 
 # Temporarily resetting the print limit
 op <- options()
-options(datatable.print.topn=3, width=50)
+options(datatable.print.topn=3, width=50, datatable.print.class=FALSE)
 ```
 
 # Preface
@@ -163,7 +163,7 @@ help(mean)
 To do a keyword search use the function `apropos()` with the keyword in double quotes 
 (`"keyword"`) or single quote (`'keyword'`). For example:
 ```{r aproposShow, echo=TRUE, eval=TRUE}
-apropos("mean")
+apropos("mean") |> head(16)
 ```
 
 ## Help Examples
@@ -656,7 +656,7 @@ function:
 ```{r meanlinesPlot, fig.height=2.0}
 ggplot(cw, aes(Time, weight, 
                group=Diet, colour=Diet)) +
-  stat_summary(fun.y="mean", geom="line") 
+  stat_summary(fun="mean", geom="line") 
 ```
 
 ## Interpretation
@@ -704,7 +704,7 @@ ggplot(cw, aes(Time, weight, group=Diet,
                              colour=Diet)) +
   facet_wrap(~ Diet) +
   geom_jitter() +
-  stat_summary(fun.y="mean", geom="line",
+  stat_summary(fun="mean", geom="line",
                colour="black") +
   theme(legend.position = "none") +
   ggtitle("Chick Weight over Time by Diet") + 
@@ -867,17 +867,14 @@ prettySum
 ## Final Table
 
 Eventually you should be able to produce a publication-ready version such as the
-following table. Its code uses the `kable` and `kableExtra` packages. While the code is
-not displayed here for compactness, full details are of course in the sources.
+following table, courtesy of the `tinytable` package.
 
-
-```{r dtprettyKable, echo = FALSE}
-tbl <- kable(prettySum[Time %in% c(0,21)], "latex",
-             booktabs = TRUE, linesep = "", align = "crrrrr") 
-tbl <- kable_styling(tbl, position = "center")
-tbl <- row_spec(tbl, 0, bold = TRUE) 
-tbl <- row_spec(tbl, c(2, 4, 6, 8), background = "lightgray")
-tbl
+```{r dtprettytable}
+# library(tinytable)
+prettySum |>
+  tt(theme = "striped") |>
+  style_tt(i = 0, bold = TRUE) |>
+  format_tt(escape = TRUE)
 ```
 
 
