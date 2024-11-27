@@ -6,7 +6,7 @@ knitr::opts_chunk$set(echo = TRUE,
 library(data.table)
 library(ggplot2)
 library(knitr)
-library(kableExtra)
+library(tinytable)
 options(width=50)
 
 # Making some aesthetic changes for this document
@@ -16,7 +16,7 @@ update_geom_defaults("boxplot", list(outlier.size = 0.5))
 
 # Temporarily resetting the print limit
 op <- options()
-options(datatable.print.topn=3, width=50)
+options(datatable.print.topn=3, width=50, datatable.print.class=FALSE)
 
 ## ----RStudioScreenshot, out.width="3.4in", fig.show='hold', fig.cap="\\label{fig:rstudio}RStudio Screenshot with Console on the left and  Help tab in the bottom right", echo=FALSE----
 include_graphics("figures/RStudio-Screenshot.png")
@@ -26,7 +26,7 @@ include_graphics("figures/RStudio-Screenshot.png")
 ## ?mean
 
 ## ----aproposShow, echo=TRUE, eval=TRUE-----------------------------------
-apropos("mean")
+apropos("mean") |> head(16)
 
 ## ----egttest, echo=2-----------------------------------------------------
 options(prompt="> ")
@@ -189,7 +189,7 @@ ggplot(cw, aes(Time, weight, colour=Diet)) +
 ## ----meanlinesPlot, fig.height=2.0---------------------------------------
 ggplot(cw, aes(Time, weight, 
                group=Diet, colour=Diet)) +
-  stat_summary(fun.y="mean", geom="line") 
+  stat_summary(fun="mean", geom="line")
 
 ## ----boxPlot-------------------------------------------------------------
 ggplot(cw, aes(Time, weight, colour=Diet)) +
@@ -203,7 +203,7 @@ ggplot(cw, aes(Time, weight, group=Diet,
                              colour=Diet)) +
   facet_wrap(~ Diet) +
   geom_jitter() +
-  stat_summary(fun.y="mean", geom="line",
+  stat_summary(fun="mean", geom="line",
                colour="black") +
   theme(legend.position = "none") +
   ggtitle("Chick Weight over Time by Diet") + 
@@ -278,13 +278,12 @@ prettySum <- cws[ , .(Diet, Time, N, Mean_SD,
                  order(Diet, Time)]
 prettySum
 
-## ----dtprettyKable, echo = FALSE-----------------------------------------
-tbl <- kable(prettySum[Time %in% c(0,21), ], "latex",
-             booktabs = TRUE, linesep = "", align = "crrrrr") 
-tbl <- kable_styling(tbl, position = "center")
-tbl <- row_spec(tbl, 0, bold = TRUE) 
-tbl <- row_spec(tbl, c(2, 4, 6, 8), background = "lightgray")
-tbl
+## ----dtprettytable-------------------------------------------------------
+# library(tinytable)
+prettySum |>
+  tt(theme = "striped") |>
+  style_tt(i = 0, bold = TRUE) |>
+  format_tt(escape = TRUE)
 
 ## ----reset, include=FALSE------------------------------------------------
 options(op)
