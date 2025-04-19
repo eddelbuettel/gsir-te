@@ -928,9 +928,10 @@ or ask questions. Most importantly have fun.
 
 Special thanks to [Saghir Bashir](https://github.com/saghirb) for publishing the initial version of
 [_Getting Started with R_](https://github.com/saghirb/Getting-Started-in-R), [Brodie
-Gaslam](https://github.com/brodieG) and [Matt Dowle](https://github.com/mattdowle) for feedback on
-this version, and to [Joshua Ulrich](https://github.com/joshuaulrich/) for many discussions about
-[The Tinyverse](http://tinyverse.org).
+Gaslam](https://github.com/brodieG) and [Matt Dowle](https://github.com/mattdowle) for early
+feedback on this version, and to [Grant McDermott](https://github.com/grantmcdermott/), [Karolis
+Koncevicius](https://github.com/karoliskoncevicius), [Alec Robitaille](https://github.com/robitalec)
+and [Jan Gorecki](https://github.com/jangorecki) for pull requests.
 
 
 [^baseR]: R project: [https://www.r-project.org/](https://www.r-project.org/)
