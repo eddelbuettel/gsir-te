@@ -811,17 +811,19 @@ cw21 <- cw[Time %in% c(0,21)][    # i: select rows
 
 # Parametrization
 
-If we would like to provide column name, or a function name, as a character variables,
-we can use `env` argument in `data.table` query:
+If we want provide column names, or a function name, as a character
+variables, we can use the `env` argument in a query:
 
 ```{r dtenv}
-col = "Weight"
-fun = "mean"
-out_col = paste(fun, col, sep="_")
-cw[, .(out_col = fun(col)), env = list(col=col, fun=fun, out_col=out_col)]
+col <- "Weight"
+fun <- "mean"
+out_col <- paste(fun, col, sep="_")
+cw[, .(out_col = fun(col)),
+   env = list(col=col, fun=fun, out_col=out_col)]
 ```
 
 Note that we also provided name of a resulting column as a character variable.
+
 
 # Chick Weight: Summary Statistics
 
