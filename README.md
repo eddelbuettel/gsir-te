@@ -1,7 +1,9 @@
 ## Getting Started in R
 
 An [eight-page pdf guide](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.pdf)
-for "Getting Started in R".
+for "Getting Started in R". A 'Second Edition' using
+[tinyplot](https://grantmcdermott.com/tinyplot/) is [also available as a
+eight-page pdf](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R-2e.pdf).
 
 ### Objective
 
@@ -32,8 +34,10 @@ learn how to manipulate, visualise and summarise data.
 ### Try it now!
 
 1. [Clone](https://help.github.com/articles/cloning-a-repository/) this repo; or download the
-   [pdf](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.pdf) and [R
-   code](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.R) individually; or
+   [1st ed pdf](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.pdf) and
+   [its R code](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.R) (or the 
+   [2nd ed pdf](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R-2e.pdf) and
+   [its R code](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R-2e.R)); or
    download the [zip](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.zip) file !
 2. The repository and the
    [zip](https://eddelbuettel.github.io/gsir-te/Getting-Started-in-R.zip)
